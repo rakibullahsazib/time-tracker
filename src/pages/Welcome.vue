@@ -50,6 +50,11 @@ import TextInput from '../components/inputs/text-inputs/TextInput.vue';
 import Button from '../components/buttons/Button.vue';
 import { debounce } from '../helpers/debounce';
 import { validateEmailAddress } from '../helpers/inputValidators';
+import { useUserStore } from '../store/userStore';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+const userStore = useUserStore()
 
 const firstName = ref('')
 const firstNameErrorMsg = ref('')
@@ -91,7 +96,15 @@ const signIn = () => {
   changeEmail(email.value)
 
   if (!firstNameErrorMsg.value && !lastNameErrorMsg.value && !emailErrorMsg.value) {
-    console.log('sign in')
+    // console.log('sign in')
+    userStore.createUser({
+      firstName: firstName.value,
+      lastName: lastName.value,
+      email: email.value
+    })
+    if (userStore.currentUser?.id) {
+      router.push({name: 'Home'})
+    }
   }
 }
 
