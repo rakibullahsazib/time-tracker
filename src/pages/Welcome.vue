@@ -6,7 +6,7 @@
     <h1 class="mt-4 text-3xl lg:text-6xl font-bold text-center">
       Time Tracker
     </h1>
-    <section class="mt-6 lg:mt-12 w-96 p-4 sm:p-0">
+    <section class="mt-6 lg:mt-12 w-80 sm:w-96 p-4 sm:p-0">
       <TextInput
         @inputChange="changeFirstName"
         id="firstName"
