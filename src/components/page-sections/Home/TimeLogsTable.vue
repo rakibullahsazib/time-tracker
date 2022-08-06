@@ -5,7 +5,7 @@
           <th class="px-4 th col-span-1 text-left">
             Date
           </th>
-          <th class="th col-span-1 text-center">
+          <th class="th col-span-1 text-right px-4">
             Duration
           </th>
           <th class="th col-span-1 text-center">
@@ -29,17 +29,17 @@
               {{ getDateMonthYearFromISO(log.date) }}
             </td>
             <!-- Categories -->
-            <td class="col-span-1 py-2 px-4 flex-center text-sm truncate">
+            <td class="col-span-1 py-2 px-4 text-right text-sm truncate">
               {{ formatTimeDifference(getTimeDifferenceInMins(log.startTime, log.endTime)) }}
             </td>
-            <td class="col-span-1 py-2 px-4 flex-center whitespace-nowrap">
+            <td class="col-span-1 py-2 px-4 text-center whitespace-nowrap">
               {{ getHourMinuteFromISO(log.startTime) }}
             </td>
-            <td class="col-span-1 py-2 px-4 flex-center whitespace-nowrap">
+            <td class="col-span-1 py-2 px-4 text-center whitespace-nowrap">
               {{ getHourMinuteFromISO(log.endTime) }}
             </td>
-            <td class="col-span-3 py-2 px-4 flex-center space-x-4">
-              {{ log.description }}
+            <td class="col-span-3 py-2 px-4">
+              {{ getExcerpt(log.description, 120) }}
             </td>
           </tr>
         </tbody>
@@ -51,6 +51,7 @@
 import { computed } from 'vue';
 import { useTimeLogStore } from '../../../store/timeLogStore.js';
 import { getDateMonthYearFromISO, getHourMinuteFromISO, getTimeDifferenceInMins, formatTimeDifference } from '../../../helpers/dateFormatter.js';
+import { getExcerpt } from '../../../helpers/stringMethods.js';
 
 const timeLogStore = useTimeLogStore()
 const timeLogs = computed(() => timeLogStore.currentUserTimeLogs)

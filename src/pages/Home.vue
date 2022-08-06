@@ -17,7 +17,7 @@
         <StopWatch/>
       </section>
     </div>
-    <TimeLogsTable class="mt-12 px-10" />
+    <TimeLogsTable class="mt-14 px-10" />
   </div>
 </template>
 
