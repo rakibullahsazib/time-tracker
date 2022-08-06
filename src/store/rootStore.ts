@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { initializeDarkMode } from '../helpers/darkMode'
+import { useTimerStore } from './timerStore'
 import { useUserStore } from './userStore'
 
 export interface RootStoreState {
@@ -29,8 +30,13 @@ export const useRootStore = defineStore('root', {
     },
     resetStores() {
       console.log('reset')
+      useTimerStore().$reset
       useUserStore().$reset
       this.$reset
+    },
+    logOut() {
+      sessionStorage.clear()
+      this.resetStores()
     }
   }
 })

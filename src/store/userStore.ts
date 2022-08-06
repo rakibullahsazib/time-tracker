@@ -28,9 +28,5 @@ export const useUserStore = defineStore('user', {
       }
       return ''
     },
-    logOut() {
-      sessionStorage.clear()
-      useRootStore().resetStores()
-    }
   }
 })
