@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { createUserInLocalStorage } from '../storageHandler/userStorageHandler'
 import { User, UserRequest } from '../types/interfaces/user.interface'
+import { useRootStore } from './rootStore'
 
 export interface UserStoreState {
   currentUser: User | undefined
@@ -9,7 +10,7 @@ export interface UserStoreState {
 export const useUserStore = defineStore('user', {
   state: (): UserStoreState => {
     return {
-      currentUser: undefined
+      currentUser: JSON.parse(sessionStorage.getItem('currentUser') || 'null') || undefined
     }
   },
   actions: {
@@ -18,10 +19,18 @@ export const useUserStore = defineStore('user', {
       console.log('create user', res)
       if (res.response === 'Success') {
         this.currentUser = res.data
+
+        // save current user in session storage
+        sessionStorage.setItem('currentUser', JSON.stringify(this.currentUser))
+
       } else {
         return res.message
       }
       return ''
+    },
+    logOut() {
+      sessionStorage.clear()
+      useRootStore().resetStores()
     }
   }
 })

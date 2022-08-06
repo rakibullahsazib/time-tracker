@@ -8,6 +8,14 @@ export const getDateMonthYearFromISO = (iso: string) => {
     year: 'numeric'
   })
 }
+export const getHourMinuteFromISO = (iso: string) => {
+  const d = new Date(iso)
+  return d.toLocaleString([], {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true
+  });
+}
 export const stringifyDate = (date: Date) => {
   // input: js date object
   // output: Aug 20, 2021 (for bad input returns Invalid Date)
