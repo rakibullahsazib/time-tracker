@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { createUserInLocalStorage, getUserFromLocalStorage } from '../storageHandler/userStorageHandler'
+import { createUserInLocalStorage } from '../storageHandler/userStorageHandler'
 import { User, UserRequest } from '../types/interfaces/user.interface'
 
 export interface UserStoreState {

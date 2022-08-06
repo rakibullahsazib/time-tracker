@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { authenticateUser } from '../helpers/navGuards'
 import NotFound from '../pages/NotFound.vue'
 
 const routes = [
@@ -11,6 +12,7 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: () => import('../pages/Home.vue'),
+    beforeEnter: authenticateUser
   },
   {
     path: '/:catchAll(.*)',
