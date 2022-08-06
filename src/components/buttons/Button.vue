@@ -1,11 +1,11 @@
 <template>
   <button
     :disabled="type === 'disabled'"
-    class="block border-2 font-semibold rounded-full py-2 px-5 focus:outline-none transition-colors duration-300 hover:text-white focus:text-white dark:hover:text-gray-200"
+    class="block border-2 font-semibold rounded-full py-2 px-5 focus:outline-none transition-opacity duration-300 text-white hover:opacity-90 focus:opacity-90 dark:hover:text-gray-200"
     :class="{
-      'text-gray-600 border-gray-600 hover:bg-gray-600 focus:bg-gray-500 dark:text-gray-500 dark:border-gray-600 dark:hover:bg-gray-600' : !type || type === 'primary',
-      'text-white border-gray-400 bg-gray-400 opacity-50 cursor-not-allowed': type === 'disabled',
-      'text-warning-400 border-warning-400 hover:bg-warning-400 focus:bg-warning-400 dark:text-warning-700 dark:border-warning-800 dark:hover:bg-warning-800' : type === 'danger',
+      ' bg-gray-600' : !type || type === 'primary',
+      'bg-gray-400 opacity-50 cursor-not-allowed': type === 'disabled',
+      'bg-warning-700' : type === 'danger',
     }"
   >
     {{ title }}

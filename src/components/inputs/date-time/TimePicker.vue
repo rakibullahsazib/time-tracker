@@ -9,8 +9,6 @@
         mode="time"
         v-model="calendarDate"
         is-expanded
-        :min-date="minDate ? new Date(minDate): undefined"
-        :max-date="maxDate ? new Date(maxDate): undefined"
         class="time-picker-spa-time-selector w-full max-w-full"
       />
     </div>
@@ -30,8 +28,6 @@ const props = defineProps<{
   disabled?: boolean,
   date?: string, // ISO
   label?: string,
-  minDate?: string, // ISO to restrict start date
-  maxDate?: string, // ISO to restrict start date
 }>()
 const emit = defineEmits(['update'])
 

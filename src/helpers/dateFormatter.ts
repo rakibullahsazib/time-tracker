@@ -25,3 +25,36 @@ export const stringifyDate = (date: Date) => {
     year: 'numeric'
   })
 }
+
+export const compareISODates = (start: string, end: string) => {
+  return new Date(start) < new Date(end)
+}
+
+export const checkSameDay = (iso1: string, iso2: string) => {
+  // checks if year, month and date are same of twor ISO string
+  const d1 = new Date(iso1)
+  const d2 = new Date(iso2)
+  console.log(iso1, iso2, d1.getFullYear(), d2.getFullYear(), d1.getMonth(), d2.getMonth(), d1.getDay(), d2.getDay())
+  if (d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDay() === d2.getDay()) {
+    console.log('same day')
+    return true
+  }
+  return false
+}
+
+export const getTimeDifferenceInMins = (startTime: string, endTime: string) => {
+  const d1: number = new Date(startTime).getTime()
+  const d2: number = new Date(endTime).getTime()
+  const diff: number = Math.abs(d2 - d1)
+  return Math.floor(diff / (1000 * 60))
+}
+
+export const formatTimeDifference = (mins: number) => {
+  const hrs = Math.floor(mins / 60)
+  const remainDerMins = mins % 60
+
+  let str = ''
+  if (hrs) str += `${hrs}h `
+  if (remainDerMins) str += `${remainDerMins}m`
+  return str.trim()
+}
