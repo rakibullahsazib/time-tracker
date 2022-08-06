@@ -13,11 +13,15 @@ export const useUserStore = defineStore('user', {
     }
   },
   actions: {
-    getCurrentUser(email: string) {
-      this.currentUser = getUserFromLocalStorage(email)
-    },
     createUser(user: UserRequest) {
-      this.currentUser = createUserInLocalStorage(user)
+      const res: any = createUserInLocalStorage(user)
+      console.log('create user', res)
+      if (res.response === 'Success') {
+        this.currentUser = res.data
+      } else {
+        return res.message
+      }
+      return ''
     }
   }
 })

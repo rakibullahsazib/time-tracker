@@ -35,11 +35,18 @@
         :required="true"
         class="mt-6 w-full font-medium text-sm"
       />
-      <Button
-        @click="signIn"
-        title="Sign In"
-        class="mt-10 lg:mt-12 w-full"
-      />
+      <div class="relative">
+        <Button
+          @click="signIn"
+          title="Sign In"
+          class="mt-10 lg:mt-12 w-full"
+        />
+        <transition name="fade">
+          <p v-if="signInErrorMsg" class="absolute w-full top-full mt-2 text-xs text-center font-medium text-red truncate pr-6 text-warning-700" :title="signInErrorMsg">
+            {{ signInErrorMsg }}
+          </p>
+        </transition>
+      </div>
     </section>
   </div>
 </template>
@@ -59,6 +66,7 @@ const userStore = useUserStore()
 const firstName = ref('')
 const firstNameErrorMsg = ref('')
 const changeFirstName = (value: string) => {
+  signInErrorMsg.value = ''
   firstNameErrorMsg.value = ''
   if (!value) {
     firstNameErrorMsg.value = 'This field can not be empty'
@@ -68,6 +76,7 @@ const changeFirstName = (value: string) => {
 const lastName = ref('')
 const lastNameErrorMsg = ref('')
 const changeLastName = (value: string) => {
+  signInErrorMsg.value = ''
   lastNameErrorMsg.value = ''
   if (!value) {
     lastNameErrorMsg.value = 'This field can not be empty'
@@ -78,6 +87,7 @@ const changeLastName = (value: string) => {
 const email = ref('')
 const emailErrorMsg = ref('')
 const changeEmail = (value: string) => {
+  signInErrorMsg.value = ''
   emailErrorMsg.value = ''
   updateEmail(value)
 }
@@ -89,6 +99,8 @@ const updateEmail = debounce((value: string) => {
   email.value = value
 })
 
+const signInErrorMsg = ref('')
+
 const signIn = () => {
   // This change methods are called to check for errors
   changeFirstName(firstName.value)
@@ -97,7 +109,7 @@ const signIn = () => {
 
   if (!firstNameErrorMsg.value && !lastNameErrorMsg.value && !emailErrorMsg.value) {
     // console.log('sign in')
-    userStore.createUser({
+    signInErrorMsg.value = userStore.createUser({
       firstName: firstName.value,
       lastName: lastName.value,
       email: email.value
