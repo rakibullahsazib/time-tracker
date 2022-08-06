@@ -1,12 +1,12 @@
 <template>
-  <div class="w-full h-screen flex-center flex-col ">
-    <h2 class="text-2xl font-semibold">
+  <div class="p-4 w-full h-screen flex-center flex-col ">
+    <h2 class="text-lg lg:text-2xl font-semibold">
       Welcome to
     </h2>
-    <h1 class="mt-4 text-6xl font-bold">
+    <h1 class="mt-4 text-3xl lg:text-6xl font-bold text-center">
       Time Tracker
     </h1>
-    <section class="mt-12">
+    <section class="mt-6 lg:mt-12 w-96 p-4 sm:p-0">
       <TextInput
         @inputChange="changeFirstName"
         id="firstName"
@@ -14,7 +14,7 @@
         :charLimit="127"
         :required="true"
         :errorMessage="firstNameErrorMsg"
-        class="w-96 font-medium text-sm"
+        class="w-full font-medium text-sm"
       />
       <TextInput
         @inputChange="changeLastName"
@@ -23,7 +23,7 @@
         :charLimit="127"
         :required="true"
         :errorMessage="lastNameErrorMsg"
-        class="mt-6 w-96 font-medium text-sm"
+        class="mt-6 w-full font-medium text-sm"
       />
       <TextInput
         @inputChange="changeEmail"
@@ -33,12 +33,12 @@
         :errorMessage="emailErrorMsg"
         :charLimit="255"
         :required="true"
-        class="mt-6 w-96 font-medium text-sm"
+        class="mt-6 w-full font-medium text-sm"
       />
       <Button
         @click="signIn"
         title="Sign In"
-        class="mt-12 w-96"
+        class="mt-10 lg:mt-12 w-full"
       />
     </section>
   </div>
