@@ -23,7 +23,7 @@ export const useTimeLogStore = defineStore('timeLog', {
       const res: any = createTimeLogInLocalStorage(request)
       console.log('create time log', res)
       if (res.response === 'Success') {
-        this.currentUserTimeLogs.push(res.data)
+        this.currentUserTimeLogs.unshift(res.data)
       }
       return res
     }

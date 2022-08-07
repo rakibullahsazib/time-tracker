@@ -35,9 +35,9 @@ export const checkSameDay = (iso1: string, iso2: string) => {
   // checks if year, month and date are same of twor ISO string
   const d1 = new Date(iso1)
   const d2 = new Date(iso2)
-  console.log(iso1, iso2, d1.getFullYear(), d2.getFullYear(), d1.getMonth(), d2.getMonth(), d1.getDay(), d2.getDay())
+  // console.log(iso1, iso2, d1.getFullYear(), d2.getFullYear(), d1.getMonth(), d2.getMonth(), d1.getDay(), d2.getDay())
   if (d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDay() === d2.getDay()) {
-    console.log('same day')
+    // console.log('same day')
     return true
   }
   return false

@@ -17,7 +17,12 @@
         <StopWatch/>
       </section>
     </div>
-    <TimeLogsTable class="mt-14 px-10" />
+    <section class="mt-14 px-10">
+      <TimeLogsTable v-if="timeLogs.length"  />
+      <p v-else class="text-center">
+        Sorry, you have not created any time logs yet.
+      </p>
+    </section>
   </div>
 </template>
 
@@ -29,10 +34,13 @@ import ManualTimeLogForm from '../components/page-sections/Home/ManualTimeLogFor
 import StopWatch from '../components/page-sections/Home/StopWatch.vue';
 import TimeLogsTable from '../components/page-sections/Home/TimeLogsTable.vue';
 import { useTimeLogStore } from '../store/timeLogStore';
+import { computed } from '@vue/reactivity';
 
 
 const timerStore = useTimerStore()
 const timeLogStore = useTimeLogStore()
+
+const timeLogs = computed(() => timeLogStore.currentUserTimeLogs)
 
 onMounted(() => {
   timerStore.startTimer()
