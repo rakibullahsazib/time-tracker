@@ -47,7 +47,7 @@
       <p v-if="errorMessage" class="absolute top-full w-full text-center mt-4 text-sm text-warning-700">
         {{errorMessage}}
       </p>
-      <p v-else-if="successMessage" class="absolute top-full w-full text-center mt-4 text-sm text-primary-600">
+      <p v-else-if="successMessage" class="absolute top-full w-full text-center mt-4 text-sm text-primary-600 font-medium">
         {{successMessage}}
       </p>
     </transition>
@@ -77,6 +77,19 @@ const changeSelectedDate = (iso: string) => {
   errorMessage.value = ''
   successMessage.value = ''
   selectedDate.value = iso
+
+  // update date for selected start time and endtime so that they don't give any unwanted errors
+  selectedStartTime.value = dayjs(selectedStartTime.value)
+    .set('date', dayjs(selectedDate.value).date())
+    .set('month', dayjs(selectedDate.value).month())
+    .set('year', dayjs(selectedDate.value).year())
+    .toISOString()
+  selectedEndTime.value = dayjs(selectedEndTime.value)
+    .set('date', dayjs(selectedDate.value).date())
+    .set('month', dayjs(selectedDate.value).month())
+    .set('year', dayjs(selectedDate.value).year())
+    .toISOString()
+
   checkForErrors()
 }
 const selectedStartTime = ref(today.toISOString())
@@ -137,8 +150,6 @@ const logTime = () => {
   
   if (res.response === 'Success') {
     successMessage.value = res.message
-    selectedStartTime.value = dayjs(currentTime.value).subtract(2, 'ms').toISOString()
-    selectedEndTime.value = dayjs(currentTime.value).subtract(1, 'ms').toISOString()
     setTimeout(() => {
       successMessage.value = ''
     }, 5000)

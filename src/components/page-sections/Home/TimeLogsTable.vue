@@ -54,7 +54,7 @@ import { getDateMonthYearFromISO, getHourMinuteFromISO, getTimeDifferenceInMins,
 import { getExcerpt } from '../../../helpers/stringMethods.js';
 
 const timeLogStore = useTimeLogStore()
-const timeLogs = computed(() => timeLogStore.currentUserTimeLogs)
+const timeLogs = computed(() => timeLogStore.sortedUserTimeLogs)
 </script>
 
 <style scoped>

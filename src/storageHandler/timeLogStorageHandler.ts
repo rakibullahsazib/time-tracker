@@ -13,9 +13,6 @@ export const getUserTimeLogsFromLocalStorage = (userId: number) => {
   return timeLogs.filter((t: TimeLog) => t.userId === userId)
 }
 
-
-// createUserInLocalStorage returns existing user if found or create a new user then return it
-// it returns false if the email address exist but the name doesn't match
 export const createTimeLogInLocalStorage = (request: TimeLogRequest) => {
   const timeLogs = getTimeLogsFromLocalStorage()
 
@@ -24,12 +21,11 @@ export const createTimeLogInLocalStorage = (request: TimeLogRequest) => {
     return t.userId === request.userId && dayjs(t.date).isSame(request.date, 'day')
   })
 
-  console.log('time logs for the day', userTimeLogsAtThatDay)
-
   for (const log of userTimeLogsAtThatDay) {
-    // request start time and end time should be either before the log start time or,
-    // request start time and end time should be after the log end time
-    console.log((dayjs(request.startTime).isAfter(log.startTime, 'minute') && dayjs(request.startTime).isBefore(log.endTime, 'minute')), (dayjs(request.endTime).isAfter(log.startTime, 'minute') && dayjs(request.endTime).isBefore(log.endTime, 'minute')))
+    // check 1: request start time is not between start and end of a log
+    // check 2: request end time is not between start and end of a log
+    // check 3: log start time is not between start and end of the request
+    // check 4: log end time is not between start and end of the request
     if (
       (dayjs(request.startTime).isAfter(log.startTime, 'minute') && dayjs(request.startTime).isBefore(log.endTime, 'minute'))
       ||

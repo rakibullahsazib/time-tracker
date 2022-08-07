@@ -13,6 +13,11 @@ export const useTimeLogStore = defineStore('timeLog', {
       currentUserTimeLogs: []
     }
   },
+  getters: {
+    sortedUserTimeLogs(state) {
+      return state.currentUserTimeLogs.sort((b, a) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime())
+    }
+  },
   actions: {
     getCurrentUserTimeLogs() {
       const currentUserId = useUserStore().currentUser?.id
@@ -23,7 +28,7 @@ export const useTimeLogStore = defineStore('timeLog', {
       const res: any = createTimeLogInLocalStorage(request)
       console.log('create time log', res)
       if (res.response === 'Success') {
-        this.currentUserTimeLogs.unshift(res.data)
+        this.currentUserTimeLogs.push(res.data)
       }
       return res
     }
