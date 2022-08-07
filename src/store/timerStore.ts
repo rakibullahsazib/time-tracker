@@ -3,13 +3,13 @@ import { createUserInLocalStorage } from '../storageHandler/userStorageHandler'
 import { User, UserRequest } from '../types/interfaces/user.interface'
 
 export interface TimerStoreState {
-  currentTime: string | undefined
+  currentTime: string
 }
 
 export const useTimerStore = defineStore('timer', {
   state: (): TimerStoreState => {
     return {
-      currentTime: undefined
+      currentTime: new Date().toISOString()
     }
   },
   actions: {

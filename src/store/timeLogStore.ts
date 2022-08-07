@@ -24,10 +24,8 @@ export const useTimeLogStore = defineStore('timeLog', {
       console.log('create time log', res)
       if (res.response === 'Success') {
         this.currentUserTimeLogs.push(res.data)
-      } else {
-        return res.message
       }
-      return ''
+      return res
     }
   }
 })
