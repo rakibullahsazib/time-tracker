@@ -19,9 +19,11 @@
 import Button from '../../buttons/Button.vue';
 import { useTimerStore } from '../../../store/timerStore';
 import { computed } from '@vue/reactivity';
+import { useUserStore } from '../../../store/userStore';
 
 const emit = defineEmits(['saveTrackedTime'])
 
+const userStore = useUserStore()
 const timerStore = useTimerStore()
 const timerCountdown = computed(() => timerStore.timerCountdown)
 const timerStartTime = computed(() => timerStore.timerStartTime)
@@ -30,12 +32,15 @@ const startOrStopTimer = () => {
   if (!timerStartTime.value) {
     timerStore.setTimerStartTime(new Date().toISOString())
   } else {
-    emit('saveTrackedTime', {
-      date: timerStartTime.value,
-      startTime: timerStartTime.value,
-      endTime: timerStore.currentTime,
-      description: ''
-    })
+    if (userStore.currentUser) {
+      emit('saveTrackedTime', {
+        date: timerStartTime.value,
+        startTime: timerStartTime.value,
+        endTime: timerStore.currentTime,
+        description: '',
+        userId: userStore.currentUser.id
+      })
+    }
     timerStore.setTimerStartTime(undefined)
   }
 }

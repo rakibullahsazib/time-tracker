@@ -1,4 +1,4 @@
-import { checkSameDay, compareISODates, getHourMinuteFromISO } from "../helpers/dateFormatter"
+import { getHourMinuteFromISO } from "../helpers/dateFormatter"
 import dayjs from "dayjs"
 import { TimeLog, TimeLogRequest } from "../types/interfaces/timelog.interface"
 
@@ -62,7 +62,7 @@ export const createTimeLogInLocalStorage = (request: TimeLogRequest) => {
 
   return {
     response: 'Success',
-    message: 'New Time Log created',
+    message: 'New Time Log created successfully',
     data: newTimeLog
   }
 }

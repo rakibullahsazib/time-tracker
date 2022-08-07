@@ -111,13 +111,27 @@ const changeSelectedEndTime = (iso: string) => {
 
 const checkForErrors = () => {
   // check selected start time or end time does not pass the current time
-  if (!compareISODates(selectedStartTime.value, currentTime.value) || !compareISODates(selectedEndTime.value, currentTime.value)) {
+  if (
+    dayjs(selectedStartTime.value).isAfter(currentTime.value) || 
+    dayjs(selectedEndTime.value).isAfter(currentTime.value)
+  ) {
     errorMessage.value = 'Sorry, Time cannot be logged for a future time'
     return
   }
 
+  // check selected start time or end time does pass the time tracker start time when time tracker is on
+  if (timerStore.timerStartTime && 
+    (
+      dayjs(selectedStartTime.value).isAfter(timerStore.timerStartTime) || 
+      dayjs(selectedEndTime.value).isAfter(timerStore.timerStartTime)
+    )
+  ) {
+    errorMessage.value = 'Sorry, This time slot coincides with the current time being tracked on. Please, stop the time tracker to log time manually'
+    return
+  }
+
   // if selected end time is before start time update start time
-  if (!compareISODates(selectedStartTime.value, selectedEndTime.value)) {
+  if (dayjs(selectedStartTime.value).isAfter(selectedEndTime.value)) {
      errorMessage.value = 'Sorry, end time can not be before or same as start time'
      return
   }
