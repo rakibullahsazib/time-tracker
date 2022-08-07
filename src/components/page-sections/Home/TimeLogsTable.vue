@@ -1,5 +1,5 @@
 <template>
-  <table class="flex-grow flex flex-col w-full border-collapse" style="min-width: 1000px">
+  <table class="mx-auto flex-grow flex flex-col w-full max-w-screen-xl" style="min-width: 768px;">
       <thead class="flex-shrink-0 block mr-4 py-1  bg-gray-200">
         <tr class="grid grid-cols-7">
           <th class="px-4 th col-span-1 text-left">

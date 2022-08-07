@@ -1,5 +1,5 @@
 <template>
-  <div class="relative flex items-stretch space-x-6">
+  <div class="relative xl:grid grid-cols-2 gap-6">
     <div class="w-60 font-medium">
       <DatePicker
         @update="changeSelectedDate"
@@ -27,7 +27,7 @@
         class="mt-4 w-full"
       />
     </div>
-    <div class="w-60 font-medium">
+    <div class="mt-4 xl:mt-0 w-60 font-medium">
       <Textarea
         @inputChange="changeDescription"
         id="manual-time-log-description"

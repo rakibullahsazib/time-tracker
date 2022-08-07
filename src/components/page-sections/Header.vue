@@ -1,6 +1,6 @@
 <template>
-  <header class="p-4 lg:px-10 py-4 flex items-center justify-between bg-gray-800 text-gray-200">
-    <div class="hidden lg:block">
+  <header class="p-4 lg:px-10 py-4 grid grid-cols-2 lg:grid-cols-3 place-items-center  bg-gray-800 text-gray-200">
+    <div class="hidden lg:block place-self-start">
       <router-link :to="{name: 'Home'}" class="block text-2xl font-semibold italic">
         Time Tracker
       </router-link>
@@ -8,7 +8,7 @@
         Log Out
       </button>
     </div>
-    <div>
+    <div class="place-self-start lg:place-self-center">
       <p class="text-xl lg:text-3xl font-bold">
         <span v-if="currentTime">{{ getHourMinuteFromISO(currentTime) }}</span>
       </p>
@@ -16,7 +16,7 @@
         Log Out
       </button>
     </div>
-    <div class="text-right text-sm text-white">
+    <div class="place-self-end text-right text-sm text-white">
       <p>
         {{currentUser?.firstName}} {{currentUser?.lastName}}
       </p>

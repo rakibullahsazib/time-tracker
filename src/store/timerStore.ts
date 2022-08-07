@@ -13,7 +13,7 @@ export const useTimerStore = defineStore('timer', {
     }
   },
   actions: {
-    startTimer() {
+    startClock() {
       setInterval(() => {
         this.currentTime = new Date().toISOString()
       }, 1000)
