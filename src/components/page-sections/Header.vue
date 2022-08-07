@@ -21,7 +21,7 @@
         {{currentUser?.firstName}} {{currentUser?.lastName}}
       </p>
       <p class="mt-2">
-        O h tracked
+        {{ formatTimeDifference(totalTimeTracked) }} tracked
       </p>
     </div>
   </header>
@@ -34,14 +34,20 @@ import { useTimerStore } from '../../store/timerStore';
 import { getHourMinuteFromISO } from '../../helpers/dateFormatter'
 import { useRouter } from 'vue-router';
 import { useRootStore } from '../../store/rootStore.js';
+import { formatTimeDifference, getTimeDifferenceInMins } from '../../helpers/dateFormatter';
+import { useTimeLogStore } from '../../store/timeLogStore';
+import { TimeLog } from '../../types/interfaces/timelog.interface';
 
 const router = useRouter()
 const rootStore = useRootStore()
 const userStore = useUserStore()
 const timerStore = useTimerStore()
+const timeLogStore = useTimeLogStore()
 
 const currentUser = computed(() => userStore.currentUser)
 const currentTime = computed(() => timerStore.currentTime)
+
+const totalTimeTracked = computed(() => timeLogStore.currentUserTimeLogs.reduce((total: number, log: TimeLog) => total + getTimeDifferenceInMins(log.startTime, log.endTime), 0))
 
 const logOut = () => {
   rootStore.logOut()

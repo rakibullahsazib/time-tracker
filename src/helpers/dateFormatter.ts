@@ -55,6 +55,6 @@ export const formatTimeDifference = (mins: number) => {
 
   let str = ''
   if (hrs) str += `${hrs}h `
-  if (remainDerMins) str += `${remainDerMins}m`
+  str += `${remainDerMins}m`
   return str.trim()
 }
