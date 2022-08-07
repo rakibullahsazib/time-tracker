@@ -4,7 +4,7 @@
       v-if="label"
       :for="id"
       class="block transition-300"
-      :class="[errorMessage ? 'text-warning-600 dark:text-warning-700' : 'text-gray-500 dark:text-gray-400']"
+      :class="[errorMessage ? 'text-warning-600' : 'text-gray-500']"
     >
       {{ label }} <span v-if="required">*</span>
     </label>
@@ -13,7 +13,7 @@
       :id="id"
       :placeholder="placeholder"
       class="mt-1 px-4 py-3 relative block w-full bg-white bg-opacity-0 text-sm border transition-colors duration-300 focus:outline-none rounded"
-      :class="errorMessage ? 'text-warning-600 border-warning-600 dark:text-warning-700 dark:border-warning-800' : 'text-gray-600 border-gray-400 dark:text-gray-300 dark:border-gray-600'"
+      :class="errorMessage ? 'text-warning-600 border-warning-600' : 'text-gray-600 border-gray-400'"
       :value="input"
       @input="changeInput"
     >

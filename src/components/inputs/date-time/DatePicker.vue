@@ -9,7 +9,7 @@
       class="relative flex justify-between items-center p-4 py-2 cursor-pointer rounded border border-gray-400 mt-0.5 bg-white"
       :class="{'opacity-70': disabled}"
     >
-      <p class="para-16 text-dark-500">
+      <p class="para-16">
         {{ stringifiedDate }}
       </p>
       <img class="w-6 h-6" src="/assets/icons/calendar.svg">

@@ -1,6 +1,6 @@
 <template>
   <table class="flex-grow flex flex-col w-full border-collapse" style="min-width: 1000px">
-      <thead class="flex-shrink-0 block mr-4 py-1  bg-gray-200 dark:opacity-75">
+      <thead class="flex-shrink-0 block mr-4 py-1  bg-gray-200">
         <tr class="grid grid-cols-7">
           <th class="px-4 th col-span-1 text-left">
             Date
@@ -20,10 +20,10 @@
         </tr>
       </thead>
       <div class="flex-grow mr-2 pr-2 overflow-y-auto custom-scrollbar">
-        <tbody class="block text-sm text-gray-600 dark:text-gray-400">
+        <tbody class="block text-sm text-gray-600 ">
           <tr
             v-for="log in timeLogs"
-            class="grid grid-cols-7 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-900 border-collapse hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300"
+            class="grid grid-cols-7 bg-white border border-gray-100 border-collapse hover:bg-gray-100 transition-colors duration-300"
           >
             <td class="col-span-1 py-2 px-4 flex items-center space-x-2.5">
               {{ getDateMonthYearFromISO(log.date) }}

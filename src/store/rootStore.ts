@@ -1,18 +1,15 @@
 import { defineStore } from 'pinia'
-import { initializeDarkMode } from '../helpers/darkMode'
 import { useTimerStore } from './timerStore'
 import { useUserStore } from './userStore'
 
 export interface RootStoreState {
   currentDropdown: string,
-  darkMode: boolean,
 }
 
 export const useRootStore = defineStore('root', {
   state: (): RootStoreState => {
     return {
       currentDropdown: '',
-      darkMode: initializeDarkMode(),
     }
   },
   actions: {
@@ -23,10 +20,6 @@ export const useRootStore = defineStore('root', {
       } else {
         this.currentDropdown = dropdown
       }
-    },
-    toggleDarkMode() {
-      this.darkMode = !this.darkMode
-      localStorage.setItem('darkMode', JSON.stringify(this.darkMode))
     },
     resetStores() {
       console.log('reset')

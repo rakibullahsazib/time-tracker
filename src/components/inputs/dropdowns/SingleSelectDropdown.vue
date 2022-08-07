@@ -9,9 +9,9 @@
       {{ label }}
     </label>
     <!-- Click to toggle -->
-    <div @click.stop="toggleCurrentDropdown(id)" class="flex px-4 py-2 items-center cursor-pointer border rounded" :class="[selectedOptionId ? 'text-grey-700' : 'text-gray-600', errorMessage ? 'border-warning-600' : 'border-gray-200 dark:border-gray-500', {'mt-1': label}]">
+    <div @click.stop="toggleCurrentDropdown(id)" class="flex px-4 py-2 items-center cursor-pointer border rounded" :class="[selectedOptionId ? 'text-grey-700' : 'text-gray-600', errorMessage ? 'border-warning-600' : 'border-gray-200', {'mt-1': label}]">
       <div class="flex-grow flex space-x-2 items-center">
-        <img v-if="selectedOption?.icon" :src="`/assets/icons/${selectedOption.icon}`" class="flex-shrink-0 w-4 h-4">
+        <img v-if="selectedOption?.icon" :src="`/assets/icons/${selectedOption.icon}`" class="flex-shrink-0 w-4 h-4" />
         <p class="flex-grow truncate">
           {{ selectedOptionId ? selectedOption?.name : '' }}
         </p>
@@ -21,7 +21,7 @@
     <transition name="toggle">
       <div
         v-show="isDropdownShown && options.length"
-        class="absolute mt-1 w-full bg-white dark:bg-gray-900 rounded shadow border border-gray-200 dark:border-gray-500 overflow-y-auto custom-scrollbar z-30"
+        class="absolute mt-1 w-full bg-white rounded shadow border border-gray-200 overflow-y-auto custom-scrollbar z-30"
         :style="{'max-height': dropdownHeight ||'14rem'}"
         data-testid="single-select-dropdown"
       >
@@ -31,7 +31,7 @@
           :key="option.id"
           :data-testid="`option_${option.id}`"
           class="px-4 py-1.5 flex space-x-2 items-center cursor-pointer bg-opacity-40 hover:bg-opacity-40"
-          :class="option.id === selectedOptionId ? 'bg-primary-100 dark:bg-gray-700 hover:bg-primary-100 font-medium' : 'bg-white dark:bg-gray-900 hover:bg-gray-200 hover:dark:bg-gray-800'"
+          :class="option.id === selectedOptionId ? 'bg-primary-100 hover:bg-primary-100 font-medium' : 'bg-white hover:bg-gray-200'"
           :title="option.name"
         >
           <img v-if="option.icon" :src="`/assets/icons/${option.icon}`" class="flex-shrink-0 w-4 h-4">
