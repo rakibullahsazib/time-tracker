@@ -9,8 +9,9 @@ export const checkStringLimit = (str: string, limit: number): string => {
 
 export const getExcerpt = (str: string, limit: number) => {
   if (!str) return ''
-  if (str.length > limit) {
-    return `${str.substring(0, limit)}...`
+  let output = str.trim()
+  if (output.length > limit) {
+    return `${output.substring(0, limit)}...`
   }
-  return str
+  return output
 }
