@@ -1,3 +1,4 @@
+import dayjs from "dayjs"
 export const getDateMonthYearFromISO = (iso: string) => {
   // input : iso string
   // output: Aug 20, 2021 (for bad input returns Invalid Date)
@@ -43,10 +44,9 @@ export const checkSameDay = (iso1: string, iso2: string) => {
 }
 
 export const getTimeDifferenceInMins = (startTime: string, endTime: string) => {
-  const d1: number = new Date(startTime).getTime()
-  const d2: number = new Date(endTime).getTime()
-  const diff: number = Math.abs(d2 - d1)
-  return Math.floor(diff / (1000 * 60))
+  const d1 = dayjs(startTime)
+  const d2 = dayjs(endTime)
+  return d2.diff(d1, 'minute')
 }
 
 export const formatTimeDifference = (mins: number) => {

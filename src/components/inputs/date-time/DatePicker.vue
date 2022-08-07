@@ -43,7 +43,7 @@ const props = defineProps<{
   id: string,
   required?: boolean,
   disabled?: boolean,
-  date?: string, // ISO
+  date: string, // ISO
   label?: string,
   minDate?: string, // ISO to restrict start date
   maxDate?: string, // ISO to restrict start date
@@ -56,9 +56,15 @@ const calendarDate = ref(props.date ? new Date(props.date) : new Date())
 
 const stringifiedDate = computed(() => props.date ? getDateMonthYearFromISO(props.date) : '')
 
-watch(() => calendarDate.value, () => {
+watch(() => [calendarDate.value, props.date], ([newCalendarDate, newPropsDate], [oldCalendarDate, oldPropsDate]) => {
   if (!calendarDate.value || props.disabled) return
-  emit('update', calendarDate.value.toISOString())
+  if (newCalendarDate !== oldCalendarDate && newPropsDate === oldPropsDate) {
+    emit('update', calendarDate.value.toISOString())
+    return
+  }
+  if (newPropsDate !== oldPropsDate && newCalendarDate === oldCalendarDate) {
+    calendarDate.value = new Date(newPropsDate)
+  }
 })
 
 const toggle = () => {

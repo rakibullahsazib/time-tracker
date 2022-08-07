@@ -34,7 +34,7 @@
         label="Description"
         :required="false"
         inputHeight="7.625rem"
-        :limit="500"
+        :limit="255"
       />
       <Button
         @click="logTime"
@@ -64,6 +64,7 @@ import { getTimeDifferenceInMins, formatTimeDifference, compareISODates } from '
 import { useTimeLogStore } from '../../../store/timeLogStore';
 import { useUserStore } from '../../../store/userStore';
 import { useTimerStore } from '../../../store/timerStore';
+import dayjs from 'dayjs'
 
 const timerStore = useTimerStore()
 const currentTime = computed(() => timerStore.currentTime)
@@ -136,8 +137,8 @@ const logTime = () => {
   
   if (res.response === 'Success') {
     successMessage.value = res.message
-    selectedStartTime.value = currentTime.value
-    selectedEndTime.value = currentTime.value
+    selectedStartTime.value = dayjs(currentTime.value).subtract(2, 'ms').toISOString()
+    selectedEndTime.value = dayjs(currentTime.value).subtract(1, 'ms').toISOString()
     setTimeout(() => {
       successMessage.value = ''
     }, 5000)
