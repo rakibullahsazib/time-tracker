@@ -1,5 +1,5 @@
 <template>
-  <div class="relative xl:grid grid-cols-2 gap-6">
+  <form @submit.prevent="logTime" class="relative xl:grid grid-cols-2 gap-6">
     <div class="w-60 font-medium">
       <DatePicker
         @update="changeSelectedDate"
@@ -37,8 +37,8 @@
         :limit="255"
       />
       <Button
-        @click="logTime"
-        :type="timeDifferenceInMins === 0 || errorMessage ? 'disabled': 'primary'"
+        type="submit"
+        :btnType="timeDifferenceInMins === 0 || errorMessage ? 'disabled': 'primary'"
         :title="`Log ${formattedTimeDifference}`"
         class="mt-6 w-full"
       />
@@ -51,7 +51,7 @@
         {{successMessage}}
       </p>
     </transition>
-  </div>
+  </form>
 </template>
 
 <script setup lang="ts">
@@ -132,7 +132,7 @@ const formattedTimeDifference = computed(() => formatTimeDifference(timeDifferen
 
 const description = ref('')
 const changeDescription = (value: string) => {
-  description.value = value
+  description.value = value.trim()
 }
 
 const logTime = () => {

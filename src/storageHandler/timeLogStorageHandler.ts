@@ -21,13 +21,19 @@ export const createTimeLogInLocalStorage = (request: TimeLogRequest) => {
     return t.userId === request.userId && dayjs(t.date).isSame(request.date, 'day')
   })
 
+  console.log('user time logs at that day', userTimeLogsAtThatDay)
+
   for (const log of userTimeLogsAtThatDay) {
-    // check 1: request start time is not between start and end of a log
-    // check 2: request end time is not between start and end of a log
-    // check 3: log start time is not between start and end of the request
-    // check 4: log end time is not between start and end of the request
+    // check 1: request start time is not same as log start time
+    // check 2: request end time is not same as log end time
+    // check 3: request start time is not between start and end of a log
+    // check 4: request end time is not between start and end of a log
+    // check 5: log start time is not between start and end of the request
+    // check 6: log end time is not between start and end of the request
     if (
-      (dayjs(request.startTime).isAfter(log.startTime, 'minute') && dayjs(request.startTime).isBefore(log.endTime, 'minute'))
+      dayjs(request.startTime).isSame(log.startTime, 'minute')
+      || dayjs(request.endTime).isSame(log.endTime, 'minute')
+      || (dayjs(request.startTime).isAfter(log.startTime, 'minute') && dayjs(request.startTime).isBefore(log.endTime, 'minute'))
       ||
       (dayjs(request.endTime).isAfter(log.startTime, 'minute') && dayjs(request.endTime).isBefore(log.endTime, 'minute'))
       ||

@@ -13,7 +13,7 @@
         <span v-if="currentTime">{{ getHourMinuteFromISO(currentTime) }}</span>
       </p>
       <button class="lg:hidden mt-1 text-sm" @click="logOut">
-        Log Out
+        Sign Out
       </button>
     </div>
     <div class="place-self-end text-right text-sm text-white">

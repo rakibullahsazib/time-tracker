@@ -1,0 +1,14 @@
+.flash {
+  animation: flash 2s ease-in-out infinite;
+}
+@keyframes flash {
+  0%{
+      background-color: rgba(20, 184, 166, 0.5);
+  }
+  50%{
+      background-color: rgba(20, 184, 166, 0.3);
+  }
+  100%{
+      background-color: rgba(20, 184, 166, 0.5);
+  }
+}

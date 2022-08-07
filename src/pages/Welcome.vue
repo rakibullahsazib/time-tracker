@@ -6,7 +6,7 @@
     <h1 class="mt-4 text-3xl lg:text-6xl font-bold text-center">
       Time Tracker
     </h1>
-    <section class="mt-6 lg:mt-12 w-80 sm:w-96 p-4 sm:p-0">
+    <form @submit.prevent="signIn" class="mt-6 lg:mt-12 w-80 sm:w-96 p-4 sm:p-0">
       <TextInput
         @inputChange="changeFirstName"
         id="firstName"
@@ -37,7 +37,7 @@
       />
       <div class="relative">
         <Button
-          @click="signIn"
+          type="submit"
           title="Sign In"
           class="mt-10 lg:mt-12 w-full"
         />
@@ -47,7 +47,7 @@
           </p>
         </transition>
       </div>
-    </section>
+    </form>
   </div>
 </template>
 
