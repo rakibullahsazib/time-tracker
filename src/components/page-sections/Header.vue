@@ -5,7 +5,7 @@
         Time Tracker
       </router-link>
       <button class="mt-1" @click="logOut">
-        Log Out
+        Sign Out
       </button>
     </div>
     <div class="place-self-start lg:place-self-center">

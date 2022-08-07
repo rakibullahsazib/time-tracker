@@ -60,7 +60,7 @@ import TimePicker from '../../inputs/date-time/TimePicker.vue';
 import Textarea from '../../inputs/text-inputs/Textarea.vue';
 import Button from '../../buttons/Button.vue';
 import { ref, computed } from 'vue';
-import { getTimeDifferenceInMins, formatTimeDifference, compareISODates } from '../../../helpers/dateFormatter'
+import { getTimeDifferenceInMins, formatTimeDifference } from '../../../helpers/dateFormatter'
 import { useTimeLogStore } from '../../../store/timeLogStore';
 import { useUserStore } from '../../../store/userStore';
 import { useTimerStore } from '../../../store/timerStore';

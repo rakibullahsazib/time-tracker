@@ -32,7 +32,7 @@
     <teleport to="body">
     <transition name="fade">
       <MessageModal
-        v-if="trackedTimeToBeSaved && getTimeDifferenceInMins(trackedTimeToBeSaved.startTime, trackedTimeToBeSaved.endTime) > 0"
+        v-if="trackedTimeToBeSaved && getTimeDifferenceInMins(trackedTimeToBeSaved.startTime, trackedTimeToBeSaved.endTime) < 1"
         @closeModal="trackedTimeToBeSaved = undefined"
         title="Time log error"
         message="Sorry, minimum time duration to be logged is 1 minute."

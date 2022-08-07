@@ -16,7 +16,7 @@ export const useTimerStore = defineStore('timer', {
   },
   getters: {
     timerCountdown(state) {
-      formatCountdownTime(state.timerStartTime, state.currentTime)
+      return formatCountdownTime(state.timerStartTime, state.currentTime)
     }
   },
   actions: {
