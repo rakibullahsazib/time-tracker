@@ -5,7 +5,7 @@
     :class="{
       ' bg-gray-600' : !type || type === 'primary',
       'bg-gray-400 opacity-50 hover:opacity-50 cursor-not-allowed': type === 'disabled',
-      'bg-warning-700' : type === 'danger',
+      'bg-warning-700 hover:opacity-80' : type === 'danger',
     }"
   >
     {{ title }}

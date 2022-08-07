@@ -3,11 +3,13 @@
     <div class="px-10 py-5 flex-center flex-col bg-gray-300 rounded-lg">
       <img class="w-20 h-20" src="/assets/icons/clock.svg" alt="">
       <p class="mt-4 text-3xl font-bold">
-        {{ '20:20:20' }}
+        {{ timerCountdown }}
       </p>
     </div>
     <Button
-      title="Start Timer"
+      @click="startOrStopTimer"
+      :title="`${timerStartTime ? 'Stop' : 'Start'} Timer`"
+      :type="timerStartTime ? 'danger' : 'primary'"
       class="mt-4 w-full"
     />
   </div>
@@ -15,7 +17,20 @@
 
 <script setup lang="ts">
 import Button from '../../buttons/Button.vue';
+import { useTimerStore } from '../../../store/timerStore';
+import { computed } from '@vue/reactivity';
 
+const timerStore = useTimerStore()
+const timerCountdown = computed(() => timerStore.timerCountdown)
+const timerStartTime = computed(() => timerStore.timerStartTime)
+
+const startOrStopTimer = () => {
+  if (!timerStartTime.value) {
+    timerStore.setTimerStartTime(new Date().toISOString())
+  } else {
+    timerStore.setTimerStartTime(undefined)
+  }
+}
 </script>
 
 <style scoped>
