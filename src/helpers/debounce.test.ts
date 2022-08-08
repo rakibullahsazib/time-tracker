@@ -3,28 +3,28 @@ import { debounce } from "./debounce";
 
 describe('debounce', () => {
   test.concurrent('function is not executed before specified time', () => {
-    let test = 5
+    let n = 5
     const increase = debounce(() => {
-      test++
+      n++
     }, 50)
     vi.useFakeTimers()
     increase()
     vi.advanceTimersByTime(40)
-    expect(test).toBe(5)
+    expect(n).toBe(5)
   })
   test.concurrent('function is executed after specified time', async () => {
-    let test = 5
+    let n = 5
     const increase = debounce(() => {
       // console.log('increase test to', test + 1)
-      test++
+      n++
     }, 50)
     vi.useFakeTimers()
     increase()
-    expect(test).toBe(5)
+    expect(n).toBe(5)
     vi.advanceTimersByTime(10)
     increase() // this will debounce the first increase call
-    expect(test).toBe(5)
+    expect(n).toBe(5)
     vi.advanceTimersByTime(51)
-    expect(test).toBe(6)
+    expect(n).toBe(6)
   })
 })

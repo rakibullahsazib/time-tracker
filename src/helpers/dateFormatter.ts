@@ -1,30 +1,20 @@
 import dayjs from "dayjs"
 export const getDateMonthYearFromISO = (iso: string) => {
-  // input : iso string
-  // output: Aug 20, 2021 (for bad input returns Invalid Date)
-  const d = new Date(iso)
-  return d.toLocaleDateString('en-us', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric'
-  })
+  return dayjs(iso).format('MMM DD, YYYY')
 }
 export const getHourMinuteFromISO = (iso: string) => {
-  const d = new Date(iso)
-  return d.toLocaleString([], {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true
-  });
+  return dayjs(iso).format('hh:mm a')
 }
 
 export const getTimeDifferenceInMins = (startTime: string, endTime: string) => {
+  if (dayjs(endTime).isBefore(startTime, 'minute')) return 0
   const d1 = dayjs(startTime)
   const d2 = dayjs(endTime)
   return d2.diff(d1, 'minute')
 }
 
 export const formatTimeDifference = (mins: number) => {
+  if (mins < 0) return '0m'
   const hrs = Math.floor(mins / 60)
   const remainDerMins = mins % 60
 
@@ -36,7 +26,7 @@ export const formatTimeDifference = (mins: number) => {
 
 export const formatCountdownTime = (startTime: string | undefined, endTime: string | undefined) => {
   // inputs are iso strings
-  if (!startTime || !endTime) return '00:00:00'
+  if (!dayjs(startTime).isValid() || !dayjs(endTime).isValid() || dayjs(endTime).isBefore(startTime, 'second')) return '00:00:00'
 
   const d1 = dayjs(startTime)
   const d2 = dayjs(endTime)

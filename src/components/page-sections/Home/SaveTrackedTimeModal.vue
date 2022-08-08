@@ -39,7 +39,8 @@
                 label="Description"
                 :required="false"
                 inputHeight="7rem"
-                :limit="255"
+                :charLimit="255"
+                :showCharCount="true"
                 class="mt-6 w-full"
               />
               <Button

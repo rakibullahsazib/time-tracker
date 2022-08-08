@@ -15,7 +15,7 @@ describe('disabled state', () => {
     wrapper = mount(Button, {
       props: {
         title: 'Title',
-        disabled: true
+        btnType: 'disabled'
       }
     })
   }
@@ -26,10 +26,12 @@ describe('disabled state', () => {
     wrapper.unmount()
   })
   test('show button text as passed in props', async () => {
-    expect(wrapper.text()).toBe('Title')
+    expect(findBtn().text()).toBe('Title')
   })
   test('button disabled', () => {
-    expect(wrapper.props('disabled')).toBeTruthy()
+    expect(wrapper.props('btnType')).toBe('disabled')
+    expect(findBtn().attributes().disabled).toBeDefined()
+    expect(findBtn().classes()).includes('cursor-not-allowed')
   })
 })
 
@@ -48,18 +50,18 @@ describe('not disabled state', () => {
     wrapper.unmount()
   })
   test('show button text as passed in props', async () => {
-    expect(wrapper.text()).toBe('Title')
+    expect(findBtn().text()).toBe('Title')
   })
   test('button not disabled', () => {
-    expect(wrapper.attributes('disabled')).toBeFalsy()
+    expect(findBtn().attributes().disabled).toBeUndefined()
   })
 })
-describe('not disabled state when disabled is false', () => {
+describe('Button type primary', () => {
   const createWrapper = () => {
     wrapper = mount(Button, {
       props: {
         title: 'Title',
-        disabled: false
+        btnType: 'primary'
       }
     })
   }
@@ -70,10 +72,36 @@ describe('not disabled state when disabled is false', () => {
     wrapper.unmount()
   })
   test('show button text as passed in props', async () => {
-    expect(wrapper.text()).toBe('Title')
+    expect(findBtn().text()).toBe('Title')
   })
   test('button not disabled', () => {
-    expect(wrapper.attributes('disabled')).toBeFalsy()
+    expect(findBtn().attributes().disabled).toBeUndefined()
+  })
+})
+
+describe('Button type danger', () => {
+  const createWrapper = () => {
+    wrapper = mount(Button, {
+      props: {
+        title: 'Title',
+        btnType: 'danger'
+      }
+    })
+  }
+  beforeEach(() => {
+    createWrapper()
+  })
+  afterEach(() => {
+    wrapper.unmount()
+  })
+  test('show button text as passed in props', async () => {
+    expect(findBtn().text()).toBe('Title')
+  })
+  test('btn should have warning class', async () => {
+    expect(findBtn().classes().some(c => c.includes('warning'))).toBe(true)
+  })
+  test('button not disabled', () => {
+    expect(findBtn().attributes().disabled).toBeUndefined()
   })
 })
 

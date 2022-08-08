@@ -19,8 +19,8 @@
       >
       </textarea>   
     </div>
-    <p v-if="limit" class="mt-0.5 text-gray-500 text-xs">
-      {{ input.length }} / {{ limit }}
+    <p v-if="showCharCount" data-testid="charCount" class="mt-0.5 text-gray-500 text-xs">
+      {{ input.length }} / {{ charLimit }}
     </p>
   </div>
 </template>
@@ -36,14 +36,15 @@ const props = defineProps<{
   errorMessage?: boolean,
   resize?: boolean
   initialValue?: string,
-  limit: number
+  charLimit: number,
+  showCharCount?: boolean,
 }>()
 const emit = defineEmits(['inputChange'])
 
 const input = ref(props.initialValue || '')
 const changeInput = (event: Event) => {
   const target = event.target as HTMLInputElement
-  input.value = checkStringLimit(target.value, props.limit)
+  input.value = checkStringLimit(target.value, props.charLimit)
   target.value = input.value
   emit('inputChange', input.value.trimEnd())
 }

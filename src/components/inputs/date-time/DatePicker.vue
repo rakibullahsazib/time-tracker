@@ -1,13 +1,14 @@
 <template>
   <div class="relative">
     <!-- Label -->
-    <div v-if="label" class="para-12-semibold text-gray-600 text-sm">
+    <label v-if="label" class="block para-12-semibold text-gray-600 text-sm">
       {{label}} <span v-if="required">*</span>
-    </div>
+    </label>
     <div
       @click.stop="toggle"
       class="relative flex justify-between items-center p-4 py-2 cursor-pointer rounded border border-gray-400 mt-0.5 bg-white"
       :class="{'opacity-70': disabled}"
+      data-testid="selected-date"
     >
       <p class="para-16">
         {{ stringifiedDate }}
@@ -15,11 +16,12 @@
       <img class="w-6 h-6" src="/assets/icons/calendar.svg">
     </div>
     <!-- Dropdown -->
-    <transition name="toggle">
+    <!-- <transition name="toggle"> -->
       <div
         @click.stop
-        v-if="currentDropdown === id"
+        v-if="isDropdownShown"
         class="absolute top-full right-0 mt-1 transform origin-top-right custom-scrollbar bg-white shadow-c rounded z-10"
+        data-testid="date-picker-dropdown"
       >
         <VDatePicker
           v-model="calendarDate"
@@ -28,7 +30,7 @@
           :max-date="maxDate ? new Date(maxDate): undefined"
         />      
       </div>
-    </transition>
+    <!-- </transition> -->
   </div>
 </template>
 
@@ -37,10 +39,9 @@ import { ref, computed, watch } from 'vue'
 import { DatePicker as VDatePicker } from 'v-calendar'
 import 'v-calendar/dist/style.css';
 import { getDateMonthYearFromISO } from '../../../helpers/dateFormatter'
-import { useRootStore } from '../../../store/rootStore';
 
 const props = defineProps<{
-  id: string,
+  isDropdownShown: boolean,
   required?: boolean,
   disabled?: boolean,
   date: string, // ISO
@@ -48,9 +49,7 @@ const props = defineProps<{
   minDate?: string, // ISO to restrict start date
   maxDate?: string, // ISO to restrict start date
 }>()
-const emit = defineEmits(['update'])
-
-const rootStore = useRootStore()
+const emit = defineEmits(['update', 'toggle'])
 
 const calendarDate = ref(props.date ? new Date(props.date) : new Date())
 
@@ -58,10 +57,12 @@ const stringifiedDate = computed(() => props.date ? getDateMonthYearFromISO(prop
 
 watch(() => [calendarDate.value, props.date], ([newCalendarDate, newPropsDate], [oldCalendarDate, oldPropsDate]) => {
   if (!calendarDate.value || props.disabled) return
-  if (newCalendarDate !== oldCalendarDate && newPropsDate === oldPropsDate) {
+  // emit update on calendar date change
+  if (newCalendarDate !== oldCalendarDate && newPropsDate === oldPropsDate && newCalendarDate !== props.date) {
     emit('update', calendarDate.value.toISOString())
     return
   }
+  // change calendar date on props date change
   if (newPropsDate !== oldPropsDate && newCalendarDate === oldCalendarDate) {
     calendarDate.value = new Date(newPropsDate)
   }
@@ -69,9 +70,8 @@ watch(() => [calendarDate.value, props.date], ([newCalendarDate, newPropsDate], 
 
 const toggle = () => {
   if (props.disabled) return
-  rootStore.toggleCurrentDropdown(props.id)
+  emit('toggle')
 }
-const currentDropdown = computed(() => rootStore.currentDropdown)
 
 </script>
 

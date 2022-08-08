@@ -3,7 +3,8 @@
     <div class="w-60 font-medium">
       <DatePicker
         @update="changeSelectedDate"
-        id="manual-time-log-date"
+        @toggle="toggleCurrentDropdown('manual-time-log-date-picker')"
+        :isDropdownShown="currentDropdown === 'manual-time-log-date-picker'"
         label="Select Date"
         :date="selectedDate"
         :maxDate="today.toISOString()"
@@ -12,7 +13,6 @@
       />
       <TimePicker
         @update="changeSelectedStartTime"
-        id="manula-time-log-start-time"
         label="Select Start Time"
         :date="selectedStartTime"
         :required="true"
@@ -20,7 +20,6 @@
       />
       <TimePicker
         @update="changeSelectedEndTime"
-        id="manula-time-log-start-time"
         label="Select End Time"
         :date="selectedEndTime"
         :required="true"
@@ -34,7 +33,8 @@
         label="Description"
         :required="false"
         inputHeight="7.625rem"
-        :limit="255"
+        :charLimit="255"
+        :showCharCount="true"
       />
       <Button
         type="submit"
@@ -65,12 +65,14 @@ import { useTimeLogStore } from '../../../store/timeLogStore';
 import { useUserStore } from '../../../store/userStore';
 import { useTimerStore } from '../../../store/timerStore';
 import dayjs from 'dayjs'
+import { useRootStore } from '../../../store/rootStore';
 
 const timerStore = useTimerStore()
-const currentTime = computed(() => timerStore.currentTime)
+const rootStore = useRootStore()
 const userStore = useUserStore()
 const timeLogStore = useTimeLogStore()
 
+const currentTime = computed(() => timerStore.currentTime)
 const today = new Date()
 const selectedDate = ref(today.toISOString())
 const changeSelectedDate = (iso: string) => {
@@ -171,6 +173,10 @@ const logTime = () => {
     errorMessage.value = res.message
   }
 }
+const toggleCurrentDropdown = (drpodown: string) => {
+  rootStore.toggleCurrentDropdown(drpodown)
+}
+const currentDropdown = computed(() => rootStore.currentDropdown)
 </script>
 
 <style scoped>

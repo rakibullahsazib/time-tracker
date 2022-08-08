@@ -3,6 +3,7 @@ import { mount, VueWrapper } from '@vue/test-utils'
 
 import TextInput from './TextInput.vue'
 import { nextTick } from "vue";
+import { checkStringLimit } from "../../../helpers/stringMethods";
 
 // render factory
 let wrapper: VueWrapper
@@ -18,28 +19,18 @@ describe('different prop state', () => {
   test('show only input and hide label when label is not passed in props', async () => {
     wrapper = mount(TextInput, {
       props: {
-        limit: 10
+        charLimit: 10
       }
     })
     expect(findInput().exists()).toBe(true)
     expect(findLabel().exists()).toBe(false)
-  })
-  test('show only input and hide label when label is not passed in props', async () => {
-    wrapper = mount(TextInput, {
-      props: {
-        label: 'Test',
-        limit: 10
-      }
-    })
-    expect(findInput().exists()).toBe(true)
-    expect(findLabel().exists()).toBe(true)
   })
   test('label for and input id exists when id is passed in props', async () => {
     wrapper = mount(TextInput, {
       props: {
         id: 'Test-id',
         label: 'Test',
-        limit: 10
+        charLimit: 10
       }
     })
     expect(findInput().attributes('id')).toBe('Test-id')
@@ -47,12 +38,12 @@ describe('different prop state', () => {
   })
 })
 
-describe('label lifting and events', () => {
+describe('emit events', () => {
   const createWrapper = () => {
     wrapper = mount(TextInput, {
       props: {
         label: 'Label',
-        limit: 10
+        charLimit: 10
       }
     })
   }
@@ -62,27 +53,18 @@ describe('label lifting and events', () => {
   afterEach(() => {
     wrapper.unmount()
   })
-  test('emit input event on input change', async () => {
-    await findInput().setValue('Test value')
+  test('emit trimmed input event on input change', async () => {
+    await findInput().setValue(' Test ')
     expect(wrapper.emitted().inputChange).toBeTruthy()
-    expect(wrapper.emitted().inputChange[0]).toEqual(['Test value'])
-  })
-  test('emit trimmed value input change', async () => {
-    await findInput().setValue('  Test value  ')
-    expect(wrapper.emitted().inputChange[0]).toEqual(['Test value'])
+    expect(wrapper.emitted().inputChange[0]).toEqual(['Test'])
   })
   test('emit substring within limit', async () => {
-    await findInput().setValue('  Test value astarstastras arst  ')
+    const str = '  stners asrt neat  sta '
+    await findInput().setValue(str)
     expect(wrapper.emitted().inputChange).toBeTruthy()
-    expect(wrapper.emitted().inputChange[0]).toEqual(['Test value'])
+    nextTick()
+    expect(wrapper.emitted().inputChange[0]).toEqual([checkStringLimit(str, 10).trimEnd()])
   })
-  test('label element has class label which ensures that it gets lifted when input is focused',async () => {
-    expect(findLabel().classes()).toContain('label')
-  })
-  test('lift the label if there is input value',async () => {
-    await findInput().setValue('Test value')
-    expect(findLabel().classes()).toContain('label-lifted')
-  })  
 })
 
 

@@ -1,9 +1,9 @@
 <template>
   <div class="relative">
     <!-- Label -->
-    <div v-if="label" class="para-12-semibold text-gray-600 text-sm">
+    <label v-if="label" class="block para-12-semibold text-gray-600 text-sm">
       {{label}} <span v-if="required">*</span>
-    </div>
+    </label>
     <div class="border border-gray-500 rounded">
       <VDatePicker
         mode="time"
@@ -16,14 +16,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { DatePicker as VDatePicker } from 'v-calendar'
 import 'v-calendar/dist/style.css';
 
 const props = defineProps<{
-  id: string,
   required?: boolean,
-  disabled?: boolean,
   date: string, // ISO
   label?: string,
 }>()
@@ -33,10 +31,12 @@ const calendarDate = ref(props.date ? new Date(props.date) : new Date())
 
 watch(() => [calendarDate.value, props.date], ([newCalendarDate, newPropsDate], [oldCalendarDate, oldPropsDate]) => {
   if (!calendarDate.value || props.disabled) return
-  if (newCalendarDate !== oldCalendarDate && newPropsDate === oldPropsDate) {
+  // emit update on calendar date change
+  if (newCalendarDate !== oldCalendarDate && newPropsDate === oldPropsDate  && newCalendarDate !== props.date) {
     emit('update', calendarDate.value.toISOString())
     return
   }
+  // change calendar date on props date change
   if (newPropsDate !== oldPropsDate && newCalendarDate === oldCalendarDate) {
     calendarDate.value = new Date(newPropsDate)
   }
