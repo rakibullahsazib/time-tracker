@@ -16,7 +16,7 @@
       <img class="w-6 h-6" src="/assets/icons/calendar.svg">
     </div>
     <!-- Dropdown -->
-    <!-- <transition name="toggle"> -->
+    <transition name="toggle">
       <div
         @click.stop
         v-if="isDropdownShown"
@@ -30,7 +30,7 @@
           :max-date="maxDate ? new Date(maxDate): undefined"
         />      
       </div>
-    <!-- </transition> -->
+    </transition>
   </div>
 </template>
 
@@ -58,12 +58,13 @@ const stringifiedDate = computed(() => props.date ? getDateMonthYearFromISO(prop
 watch(() => [calendarDate.value, props.date], ([newCalendarDate, newPropsDate], [oldCalendarDate, oldPropsDate]) => {
   if (!calendarDate.value || props.disabled) return
   // emit update on calendar date change
-  if (newCalendarDate !== oldCalendarDate && newPropsDate === oldPropsDate && newCalendarDate !== props.date) {
+  // emit update on calendar date change
+  if (newPropsDate === oldPropsDate &&newCalendarDate !== oldCalendarDate &&  calendarDate.value.toISOString() !== props.date) {
     emit('update', calendarDate.value.toISOString())
     return
   }
   // change calendar date on props date change
-  if (newPropsDate !== oldPropsDate && newCalendarDate === oldCalendarDate) {
+  if (newCalendarDate === oldCalendarDate && newPropsDate !== oldPropsDate && calendarDate.value.toISOString() !== props.date) {
     calendarDate.value = new Date(newPropsDate)
   }
 })

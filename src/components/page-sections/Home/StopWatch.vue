@@ -20,6 +20,8 @@ import Button from '../../buttons/Button.vue';
 import { useTimerStore } from '../../../store/timerStore';
 import { computed } from '@vue/reactivity';
 import { useUserStore } from '../../../store/userStore';
+import { watch } from 'vue';
+import dayjs from 'dayjs';
 
 const emit = defineEmits(['saveTrackedTime'])
 
@@ -28,15 +30,26 @@ const timerStore = useTimerStore()
 const timerCountdown = computed(() => timerStore.timerCountdown)
 const timerStartTime = computed(() => timerStore.timerStartTime)
 
+watch(() => timerCountdown.value, () => {
+  // if time tracker passes to another day stop the timer
+  if (!dayjs(timerStore.currentTime).isSame(timerStartTime.value, 'day')) {
+    startOrStopTimer()
+  }
+})
 const startOrStopTimer = () => {
   if (!timerStartTime.value) {
     timerStore.setTimerStartTime(new Date().toISOString())
   } else {
+    let endTime = timerStore.currentTime
+    // if timer has passed the current day change end time to the end of timer start date
+    if (!dayjs(endTime).isSame(timerStartTime.value, 'day')) {
+      endTime = dayjs(timerStartTime.value).endOf('day').toISOString()
+    }
     if (userStore.currentUser) {
       emit('saveTrackedTime', {
         date: timerStartTime.value,
         startTime: timerStartTime.value,
-        endTime: timerStore.currentTime,
+        endTime: endTime,
         description: '',
         userId: userStore.currentUser.id
       })

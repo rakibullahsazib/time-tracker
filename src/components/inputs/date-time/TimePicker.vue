@@ -27,17 +27,17 @@ const props = defineProps<{
 }>()
 const emit = defineEmits(['update'])
 
-const calendarDate = ref(props.date ? new Date(props.date) : new Date())
+const calendarDate = ref<Date>(props.date ? new Date(props.date) : new Date())
 
 watch(() => [calendarDate.value, props.date], ([newCalendarDate, newPropsDate], [oldCalendarDate, oldPropsDate]) => {
-  if (!calendarDate.value || props.disabled) return
+  if (!calendarDate.value) return
   // emit update on calendar date change
-  if (newCalendarDate !== oldCalendarDate && newPropsDate === oldPropsDate  && newCalendarDate !== props.date) {
+  if (newPropsDate === oldPropsDate &&newCalendarDate !== oldCalendarDate &&  calendarDate.value.toISOString() !== props.date) {
     emit('update', calendarDate.value.toISOString())
     return
   }
   // change calendar date on props date change
-  if (newPropsDate !== oldPropsDate && newCalendarDate === oldCalendarDate) {
+  if (newCalendarDate === oldCalendarDate && newPropsDate !== oldPropsDate && calendarDate.value.toISOString() !== props.date) {
     calendarDate.value = new Date(newPropsDate)
   }
 })

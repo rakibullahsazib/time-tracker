@@ -81,15 +81,18 @@ const changeSelectedDate = (iso: string) => {
   selectedDate.value = iso
 
   // update date for selected start time and endtime so that they don't give any unwanted errors
+  const date = dayjs(selectedDate.value).date()
+  const month = dayjs(selectedDate.value).month()
+  const year = dayjs(selectedDate.value).year()
   selectedStartTime.value = dayjs(selectedStartTime.value)
-    .set('date', dayjs(selectedDate.value).date())
-    .set('month', dayjs(selectedDate.value).month())
-    .set('year', dayjs(selectedDate.value).year())
+    .set('date', date)
+    .set('month', month)
+    .set('year', year)
     .toISOString()
   selectedEndTime.value = dayjs(selectedEndTime.value)
-    .set('date', dayjs(selectedDate.value).date())
-    .set('month', dayjs(selectedDate.value).month())
-    .set('year', dayjs(selectedDate.value).year())
+    .set('date', date)
+    .set('month', month)
+    .set('year', year)
     .toISOString()
 
   checkForErrors()
@@ -165,6 +168,8 @@ const logTime = () => {
   })
   
   if (res.response === 'Success') {
+    selectedEndTime.value = dayjs(selectedEndTime.value).add(1, 'millisecond').toISOString()
+    selectedStartTime.value = dayjs(selectedEndTime.value).subtract(1, 'millisecond').toISOString()
     successMessage.value = res.message
     setTimeout(() => {
       successMessage.value = ''
