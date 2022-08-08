@@ -23,6 +23,7 @@ export const useUserStore = defineStore('user', {
         sessionStorage.setItem('currentUser', JSON.stringify(this.currentUser))
 
       } else {
+        this.currentUser = undefined
         return res.message
       }
       return ''

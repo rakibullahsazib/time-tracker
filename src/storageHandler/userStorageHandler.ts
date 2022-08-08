@@ -17,6 +17,7 @@ export const getUserFromLocalStorage = (email: string) => {
 // it returns false if the email address exist but the name doesn't match
 export const createUserInLocalStorage = (user: UserRequest) => {
   const existingUser = getUserFromLocalStorage(user.email)
+  // console.log(user, existingUser)
   if (existingUser) {
     // check for names
     if (user.firstName !== existingUser.firstName || user.lastName !== existingUser.lastName) {

@@ -4,7 +4,7 @@
       <router-link :to="{name: 'Home'}" class="block text-2xl font-semibold italic">
         Time Tracker
       </router-link>
-      <button class="mt-1" @click="logOut">
+      <button class="mt-1" @click="logOut" data-testid="sign-out-btn">
         Sign Out
       </button>
     </div>

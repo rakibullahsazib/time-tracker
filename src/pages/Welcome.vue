@@ -42,7 +42,7 @@
           class="mt-10 lg:mt-12 w-full"
         />
         <transition name="fade">
-          <p v-if="signInErrorMsg" class="absolute w-full top-full mt-2 text-xs text-center font-medium text-red truncate pr-6 text-warning-700" :title="signInErrorMsg">
+          <p v-if="signInErrorMsg" class="absolute w-full top-full mt-2 text-xs text-center font-medium text-red truncate pr-6 text-warning-700" :title="signInErrorMsg" data-testid="signInErrorMsg">
             {{ signInErrorMsg }}
           </p>
         </transition>
@@ -107,7 +107,7 @@ const signIn = () => {
   changeLastName(lastName.value)
   changeEmail(email.value)
 
-  if (!firstNameErrorMsg.value && !lastNameErrorMsg.value && !emailErrorMsg.value) {
+  if (!firstNameErrorMsg.value && !lastNameErrorMsg.value && !emailErrorMsg.value && firstName.value && lastName.value && email.value) {
     // console.log('sign in')
     signInErrorMsg.value = userStore.createUser({
       firstName: firstName.value,
