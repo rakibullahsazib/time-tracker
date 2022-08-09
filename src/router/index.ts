@@ -16,8 +16,9 @@ const routes = [
   },
   {
     path: '/:catchAll(.*)',
-    component: NotFound,
-    name: 'NotFound'
+    name: 'Home',
+    component: () => import('../pages/Home.vue'),
+    beforeEnter: authenticateUser
   }
 ]
 
