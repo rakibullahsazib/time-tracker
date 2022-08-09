@@ -38,7 +38,7 @@
             <td class="col-span-1 py-2 px-4 text-center whitespace-nowrap">
               {{ getHourMinuteFromISO(log.endTime) }}
             </td>
-            <td class="col-span-3 py-2 px-4">
+            <td class="col-span-3 py-2 px-4" :title="log.description">
               {{ getExcerpt(log.description, 120) }}
             </td>
           </tr>

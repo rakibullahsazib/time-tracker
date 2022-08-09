@@ -69,12 +69,19 @@ describe('time log && errors for coinciding with existing timelog', () => {
     // description should be blank after a successful log
     cy.get('[data-testid=manual-time-log-description] textarea').invoke('val').should('be.empty')
 
+    // add log time to total tracked time
+    cy.get('[data-testid=total-tracked-time]').should('have.text', '10m')
+
     // try logging another one coninciding start time with saved log end time
     logManualTimeLog(9, 20, 9, 30, "My description")
     cy.get('[data-testid=time-log-table-body]').find('tr').should('have.length', 2)
+    cy.get('[data-testid=total-tracked-time]').should('have.text', '20m')
+
     // try logging another one coninciding end time with saved log start time
     logManualTimeLog(8, 0, 9, 10, "My description")
     cy.get('[data-testid=time-log-table-body]').find('tr').should('have.length', 3)
+    cy.get('[data-testid=total-tracked-time]').should('have.text', '1h 30m')
+
   })
 
   it('shows error message when start date or end date collide with existing time log', () => {

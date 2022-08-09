@@ -21,7 +21,7 @@
         {{currentUser?.firstName}} {{currentUser?.lastName}}
       </p>
       <p class="mt-2">
-        {{ formatTimeDifference(totalTimeTracked) }} tracked
+        <span data-testid="total-tracked-time">{{ formatTimeDifference(totalTimeTracked) }}</span> tracked
       </p>
     </div>
   </header>

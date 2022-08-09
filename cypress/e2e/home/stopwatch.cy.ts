@@ -69,7 +69,7 @@ describe('save tracked time', () => {
     cy.get('[data-testid=stopwatch-button]').click()
     cy.get('[data-testid=modal-time-tracked-form]').should('exist')
   })
-  it('save tracked time if one minute or more is tracked', () => {
+  it.only('save tracked time if one minute or more is tracked', () => {
     cy.get('[data-testid=stopwatch-button]').click()
     cy.tick(1000 * 60)
     cy.get('[data-testid=stopwatch-button]').click()
@@ -81,6 +81,9 @@ describe('save tracked time', () => {
 
     cy.get('[data-testid=time-log-table-body]').should('exist')
     cy.get('[data-testid=time-log-table-body]').find('tr').should('have.length', 1)
+
+    // total tracked time should be updated
+    cy.get('[data-testid=total-tracked-time]').should('have.text', '1m')
 
     // close modal
     cy.get('[data-testid=modal-close-btn]').click()
