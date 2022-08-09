@@ -10,8 +10,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "cy:open": "cypress open -b chrome --e2e",
-    "cy:run": "cypress run --browser chrome"
+    "cy:open": "cypress open -b chrome --e2e"
   },
   "dependencies": {
     "dayjs": "^1.11.4",
