@@ -1,4 +1,5 @@
 <template>
+  <!-- Used as a wayaround for cypress testing -->
   <slot v-if="testEnv"></slot>
   <transition v-else :name="name" :mode="mode || 'default'">
     <slot></slot>

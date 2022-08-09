@@ -66,6 +66,9 @@ describe('time log && errors for coinciding with existing timelog', () => {
     cy.get('[data-testid=time-log-table-body]').should('exist')
     cy.get('[data-testid=time-log-table-body]').find('tr').should('have.length', 1)
 
+    // description should be blank after a successful log
+    cy.get('[data-testid=manual-time-log-description] textarea').invoke('val').should('be.empty')
+
     // try logging another one coninciding start time with saved log end time
     logManualTimeLog(9, 20, 9, 30, "My description")
     cy.get('[data-testid=time-log-table-body]').find('tr').should('have.length', 2)

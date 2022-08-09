@@ -1,8 +1,8 @@
 import { describe, expect, test, beforeEach, afterEach } from "vitest";
-import { mount, VueWrapper } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import TimePicker from './TimePicker.vue'
 
-let wrapper: VueWrapper
+let wrapper: any
 const createWrapper = () => {
   wrapper = mount(TimePicker, {
     props: {

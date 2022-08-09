@@ -1,12 +1,12 @@
 import { describe, expect, test, beforeEach, afterEach } from "vitest";
-import { mount, VueWrapper } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 
 import TextInput from './TextInput.vue'
 import { nextTick } from "vue";
 import { checkStringLimit } from "../../../helpers/stringMethods";
 
 // render factory
-let wrapper: VueWrapper
+let wrapper: any
 
 // helpers
 const findInput = () => wrapper.find('input')

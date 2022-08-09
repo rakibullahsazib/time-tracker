@@ -34,6 +34,7 @@
         @inputChange="changeDescription"
         id="manual-time-log-description"
         label="Description"
+        :initialValue="description"
         :required="false"
         inputHeight="7.625rem"
         :charLimit="255"

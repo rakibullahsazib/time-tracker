@@ -1,10 +1,10 @@
 import { describe, expect, test, beforeEach, afterEach } from "vitest";
-import { mount, VueWrapper } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 
 import Button from './Button.vue'
 
 // render factory
-let wrapper: VueWrapper
+let wrapper: any
 
 // helpers
 const findBtn = () => wrapper.find('button')
@@ -98,7 +98,7 @@ describe('Button type danger', () => {
     expect(findBtn().text()).toBe('Title')
   })
   test('btn should have warning class', async () => {
-    expect(findBtn().classes().some(c => c.includes('warning'))).toBe(true)
+    expect(findBtn().classes().some((c: string) => c.includes('warning'))).toBe(true)
   })
   test('button not disabled', () => {
     expect(findBtn().attributes().disabled).toBeUndefined()
