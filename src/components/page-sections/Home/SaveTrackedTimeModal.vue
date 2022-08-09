@@ -1,20 +1,20 @@
 <template>
-    <div @click.self.stop="$emit('closeModal')" class="fixed inset-0  flex justify-center items-center bg-gray-900 bg-opacity-80">
-      <div @click.stop class="relative px-14 py-12 bg-white overflow-y-auto custom-scrollbar rounded" style="width: 30rem; max-width: 80%; max-height: 80vw;">
+    <div @click.self="$emit('closeModal')" class="fixed inset-0  flex justify-center items-center bg-gray-900 bg-opacity-80">
+      <div class="relative px-14 py-12 bg-white overflow-y-auto custom-scrollbar rounded" style="width: 30rem; max-width: 80%; max-height: 80vw;">
           <div>
-            <img @click="$emit('closeModal')" class="absolute top-6 right-6 w-6 h-6 cursor-pointer" src="/assets/icons/cross-circle.svg" alt="Close" data-testid="cross-img">
+            <img @click="$emit('closeModal')" class="absolute top-6 right-6 w-6 h-6 cursor-pointer" src="/assets/icons/cross-circle.svg" alt="Close" data-testid="modal-close-btn">
 
             <h6 class="text-center font-semibold text-lg" data-testid="title">
               Save Tracked Time
             </h6>
-            <p v-if="errorMessage" class="w-64 mx-auto mt-8 text-sm text-center text-warning-700 font-medium" data-testid="error-message">
+            <p v-if="errorMessage" class="w-64 mx-auto mt-8 text-sm text-center text-warning-700 font-medium" data-testid="modal-error-message">
               {{ errorMessage }}
             </p>
-            <p v-else-if="successMessage" class="mx-auto mt-8 text-sm text-center font-medium" data-testid="success-message">
+            <p v-else-if="successMessage" class="mx-auto mt-8 text-sm text-center font-medium" data-testid="modal-success-message">
               {{ successMessage }}
             </p>
             <!-- form -->
-            <form v-else @submit.prevent="logTime" class="mt-8 text-sm font-medium">
+            <form v-else @submit.prevent="logTime" class="mt-8 text-sm font-medium" data-testid="modal-time-tracked-form">
               <div class="flex justify-between items-centers space-x-6 flex-wrap">
                 <div>
                   <p>

@@ -4,12 +4,12 @@ import NotFound from '../pages/NotFound.vue'
 
 const routes = [
   {
-    path: '/',
+    path: '/login',
     name: 'Welcome',
     component: () => import('../pages/Welcome.vue'),
   },
   {
-    path: '/home',
+    path: '/',
     name: 'Home',
     component: () => import('../pages/Home.vue'),
     beforeEnter: authenticateUser

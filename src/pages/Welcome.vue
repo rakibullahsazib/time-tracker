@@ -41,11 +41,11 @@
           title="Sign In"
           class="mt-10 lg:mt-12 w-full"
         />
-        <transition name="fade">
+        <TransitionConditional name="fade">
           <p v-if="signInErrorMsg" class="absolute w-full top-full mt-2 text-xs text-center font-medium text-red truncate pr-6 text-warning-700" :title="signInErrorMsg" data-testid="signInErrorMsg">
             {{ signInErrorMsg }}
           </p>
-        </transition>
+        </TransitionConditional>
       </div>
     </form>
   </div>
@@ -59,6 +59,7 @@ import { debounce } from '../helpers/debounce';
 import { validateEmailAddress } from '../helpers/inputValidators';
 import { useUserStore } from '../store/userStore';
 import { useRouter } from 'vue-router';
+import TransitionConditional from '../components/TransitionConditional.vue';
 
 const router = useRouter()
 const userStore = useUserStore()

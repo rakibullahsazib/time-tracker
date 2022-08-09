@@ -30,21 +30,23 @@
     </main>
 
     <teleport to="body">
-    <transition name="fade">
+    <TransitionConditional name="fade">
       <MessageModal
         v-if="trackedTimeToBeSaved && getTimeDifferenceInMins(trackedTimeToBeSaved.startTime, trackedTimeToBeSaved.endTime) < 1"
         @closeModal="trackedTimeToBeSaved = undefined"
         title="Time log error"
         message="Sorry, minimum time duration to be logged is 1 minute."
         class="z-30"
+        data-testid="message-modal"
       />
       <SaveTrackedTimeModal
         v-else-if="trackedTimeToBeSaved"
         @closeModal="trackedTimeToBeSaved = undefined"
         :timeLogData="trackedTimeToBeSaved"
         class="z-30"
+        data-testid="save-tracked-time-modal"
       />
-    </transition>
+    </TransitionConditional>
     </teleport>
   </div>
 </template>
@@ -62,6 +64,7 @@ import { TimeLogRequest } from '../types/interfaces/timelog.interface';
 import MessageModal from '../components/modals/MessageModal.vue';
 import { getTimeDifferenceInMins } from '../helpers/dateFormatter';
 import SaveTrackedTimeModal from '../components/page-sections/Home/SaveTrackedTimeModal.vue';
+import TransitionConditional from '../components/TransitionConditional.vue';
 
 
 const timerStore = useTimerStore()

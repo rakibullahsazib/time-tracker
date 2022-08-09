@@ -18,17 +18,18 @@
       @input="changeInput"
     >
     
-    <transition name="fade">
+    <TransitionConditional name="fade">
       <p v-if="errorMessage" class="absolute w-full top-full mt-1 text-xs text-center text-red truncate pr-6 text-warning-700" :title="errorMessage">
         {{ errorMessage }}
       </p>
-    </transition>
+    </TransitionConditional>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import { checkStringLimit } from '../../../helpers/stringMethods';
+import TransitionConditional from '../../TransitionConditional.vue';
 const props = defineProps<{
   id?: string,
   type?: string,

@@ -2,7 +2,7 @@
   <div class="flex-center flex-col">
     <div class="px-10 py-5 flex-center flex-col rounded-lg bg-gray-200"  :class="{'flash': timerStartTime}">
       <img class="w-20 h-20" src="/assets/icons/clock.svg" alt="">
-      <p class="mt-4 text-3xl font-bold">
+      <p class="mt-4 text-3xl font-bold" data-testid="stopwatch-countdown">
         {{ timerCountdown }}
       </p>
     </div>
@@ -11,6 +11,7 @@
       :title="`${timerStartTime ? 'Stop' : 'Start'} Timer`"
       :btnType="timerStartTime ? 'danger' : 'primary'"
       class="mt-4 w-full"
+      data-testid="stopwatch-button"
     />
   </div>
 </template>

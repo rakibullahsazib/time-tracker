@@ -1,9 +1,5 @@
 
-const user = {
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'john@doe.com'
-}
+import { user } from "../../support/data"
 const findFirstNameInput = () => cy.get('#firstName')
 const findLastNameInput = () => cy.get('#lastName')
 const findEmailInput = () => cy.get('#email')
@@ -14,7 +10,6 @@ const findEmailErrorMsg = () => cy.get('#email + p')
 const findSignInErrorMsg = () => cy.get('[data-testid=signInErrorMsg]')
 
 const logInJohnDoe = () => {
-  cy.visit('/')
   findFirstNameInput().type(user.firstName)
   findLastNameInput().type(user.lastName)
   findEmailInput().type(user.email)
@@ -25,20 +20,20 @@ const logOut = () => {
   cy.get('[data-testid=sign-out-btn]').click()
 }
 
-describe.only('testing inputs', () => {
+describe('testing inputs', () => {
   beforeEach(() => {
     sessionStorage.clear();
     localStorage.clear();
   })
 
   it('successfully loads', () => {
-    cy.visit('/')
+    cy.visit('/login')
   })
 
   it('can not log in if inputs are empty, show error messages', () => {
-    cy.visit('/')
+    cy.visit('/login')
     findSubmitBtn().click()
-    cy.url().should('not.include', '/home')
+    cy.url().should('include', '/login')
     findFirstNameErrorMsg().should('not.be.empty')
     findLastNameErrorMsg().should('not.be.empty')
     findEmailErrorMsg().should('not.be.empty')
@@ -49,10 +44,11 @@ describe('successful login', () => {
   beforeEach(() => {
     sessionStorage.clear();
     localStorage.clear();
+    cy.visit('/login')
   })
   it('logs in user sucessfully and save user in session storage', () => {
     logInJohnDoe()
-    cy.url().should('include', '/home')
+    cy.url().should('not.include', '/login')
   })
 })
 
@@ -60,6 +56,7 @@ describe('login errors', () => {
   beforeEach(() => {
     sessionStorage.clear();
     localStorage.clear();
+    cy.visit('/login')
   })
   it('shows error when trying to save a new user with an existing users email address', () => {
     logInJohnDoe()
@@ -70,7 +67,7 @@ describe('login errors', () => {
     cy.wait(500)
     findSignInErrorMsg().should('not.exist')
     findSubmitBtn().click()
-    cy.url().should('not.include', '/home')
+    cy.url().should('include', '/login')
     findSignInErrorMsg().should('not.be.empty')
   })
 })

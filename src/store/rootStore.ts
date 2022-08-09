@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { useTimeLogStore } from './timeLogStore'
 import { useTimerStore } from './timerStore'
 import { useUserStore } from './userStore'
 
@@ -23,6 +24,7 @@ export const useRootStore = defineStore('root', {
     },
     resetStores() {
       console.log('reset')
+      useTimeLogStore().$reset
       useTimerStore().$reset
       useUserStore().$reset
       this.$reset

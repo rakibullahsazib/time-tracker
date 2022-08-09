@@ -20,7 +20,7 @@
         </tr>
       </thead>
       <div class="flex-grow mr-2 pr-2 overflow-y-auto custom-scrollbar">
-        <tbody class="block text-sm text-gray-600 ">
+        <tbody class="block text-sm text-gray-600" data-testid="time-log-table-body">
           <tr
             v-for="log in timeLogs"
             class="grid grid-cols-7 bg-white border border-gray-100 border-collapse hover:bg-gray-100 transition-colors duration-300"

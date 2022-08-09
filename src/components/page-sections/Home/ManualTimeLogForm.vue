@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="logTime" class="relative xl:grid grid-cols-2 gap-6">
+  <form @submit.prevent="logTime" class="relative xl:grid grid-cols-2 gap-6" data-testid="manual-time-log-form">
     <div class="w-60 font-medium">
       <DatePicker
         @update="changeSelectedDate"
@@ -10,6 +10,7 @@
         :maxDate="today.toISOString()"
         :required="true"
         class="w-full"
+        data-testid="manual-time-log-date-picker"
       />
       <TimePicker
         @update="changeSelectedStartTime"
@@ -17,6 +18,7 @@
         :date="selectedStartTime"
         :required="true"
         class="mt-4 w-full"
+        data-testid="manual-time-log-start-time-picker"
       />
       <TimePicker
         @update="changeSelectedEndTime"
@@ -24,6 +26,7 @@
         :date="selectedEndTime"
         :required="true"
         class="mt-4 w-full"
+        data-testid="manual-time-log-end-time-picker"
       />
     </div>
     <div class="mt-4 xl:mt-0 w-60 font-medium">
@@ -35,22 +38,24 @@
         inputHeight="7.625rem"
         :charLimit="255"
         :showCharCount="true"
+        data-testid="manual-time-log-description"
       />
       <Button
         type="submit"
         :btnType="timeDifferenceInMins === 0 || errorMessage ? 'disabled': 'primary'"
         :title="`Log ${formattedTimeDifference}`"
         class="mt-6 w-full"
+        data-testid="manual-time-log-submit-btn"
       />
     </div>
-    <transition name="fade">
-      <p v-if="errorMessage" class="absolute top-full w-full text-center mt-4 text-sm text-warning-700">
+    <TransitionConditional name="fade">
+      <p v-if="errorMessage" class="absolute top-full w-full text-center mt-4 text-sm text-warning-700" data-testid="manual-time-log-error-message">
         {{errorMessage}}
       </p>
-      <p v-else-if="successMessage" class="absolute top-full w-full text-center mt-4 text-sm text-primary-600 font-medium">
+      <p v-else-if="successMessage" class="absolute top-full w-full text-center mt-4 text-sm text-primary-600 font-medium" data-testid="manual-time-log-success-message">
         {{successMessage}}
       </p>
-    </transition>
+    </TransitionConditional>
   </form>
 </template>
 
@@ -66,6 +71,7 @@ import { useUserStore } from '../../../store/userStore';
 import { useTimerStore } from '../../../store/timerStore';
 import dayjs from 'dayjs'
 import { useRootStore } from '../../../store/rootStore';
+import TransitionConditional from '../../TransitionConditional.vue';
 
 const timerStore = useTimerStore()
 const rootStore = useRootStore()
@@ -170,6 +176,7 @@ const logTime = () => {
   if (res.response === 'Success') {
     selectedEndTime.value = dayjs(selectedEndTime.value).add(1, 'millisecond').toISOString()
     selectedStartTime.value = dayjs(selectedEndTime.value).subtract(1, 'millisecond').toISOString()
+    description.value = ''
     successMessage.value = res.message
     setTimeout(() => {
       successMessage.value = ''

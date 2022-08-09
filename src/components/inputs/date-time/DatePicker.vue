@@ -16,7 +16,7 @@
       <img class="w-6 h-6" src="/assets/icons/calendar.svg">
     </div>
     <!-- Dropdown -->
-    <transition name="toggle">
+    <TransitionConditional name="toggle">
       <div
         @click.stop
         v-if="isDropdownShown"
@@ -30,7 +30,7 @@
           :max-date="maxDate ? new Date(maxDate): undefined"
         />      
       </div>
-    </transition>
+    </TransitionConditional>
   </div>
 </template>
 
@@ -39,6 +39,7 @@ import { ref, computed, watch } from 'vue'
 import { DatePicker as VDatePicker } from 'v-calendar'
 import 'v-calendar/dist/style.css';
 import { getDateMonthYearFromISO } from '../../../helpers/dateFormatter'
+import TransitionConditional from '../../TransitionConditional.vue';
 
 const props = defineProps<{
   isDropdownShown: boolean,
