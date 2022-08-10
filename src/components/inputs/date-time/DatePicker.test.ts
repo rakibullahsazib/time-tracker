@@ -1,8 +1,8 @@
 import { describe, expect, test, beforeEach, afterEach } from "vitest";
-import { mount } from '@vue/test-utils'
+import { mount, VueWrapper } from '@vue/test-utils'
 import DatePicker from './DatePicker.vue'
 
-let wrapper: any
+let wrapper: VueWrapper
 const createWrapper = (dropdownShown: boolean) => {
   wrapper = mount(DatePicker, {
     props: {

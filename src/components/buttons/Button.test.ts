@@ -1,10 +1,10 @@
 import { describe, expect, test, beforeEach, afterEach } from "vitest";
-import { mount } from '@vue/test-utils'
+import { mount, VueWrapper } from '@vue/test-utils'
 
 import Button from './Button.vue'
 
 // render factory
-let wrapper: any
+let wrapper: VueWrapper
 
 // helpers
 const findBtn = () => wrapper.find('button')

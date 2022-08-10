@@ -1,11 +1,11 @@
 import { describe, expect, test, beforeEach, afterEach } from "vitest";
-import { mount } from '@vue/test-utils'
+import { mount, VueWrapper } from '@vue/test-utils'
 
 import Textarea from './Textarea.vue'
 import { nextTick } from "vue";
 import { checkStringLimit } from "../../../helpers/stringMethods";
 
-let wrapper: any
+let wrapper: VueWrapper
 
 // helpers
 const findInput = () => wrapper.find('textarea')
