@@ -10,8 +10,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "cy:open": "cypress open -b chrome --e2e",
-    "deploy":"npm run build && git add dist -f && git commit -m 'hosting'  && git subtree push --prefix dist origin gh-pages"
+    "cy:open": "cypress open -b chrome --e2e"
   },
   "dependencies": {
     "dayjs": "^1.11.4",
