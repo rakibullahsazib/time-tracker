@@ -1,16 +1,17 @@
 import { describe, expect, test, beforeEach, afterEach } from "vitest";
-import { mount } from '@vue/test-utils'
+import { mount, VueWrapper } from '@vue/test-utils'
 
 import TextInput from './TextInput.vue'
 import { nextTick } from "vue";
 import { checkStringLimit } from "../../../helpers/stringMethods";
 
 // render factory
-let wrapper: any
+let wrapper: VueWrapper
 
 // helpers
 const findInput = () => wrapper.find('input')
 const findLabel = () => wrapper.find('label')
+const findErrorMsg = () => wrapper.find('[data-testid=error-message]')
 
 describe('different prop state', () => {
   afterEach(() => {
@@ -53,7 +54,12 @@ describe('emit events', () => {
   afterEach(() => {
     wrapper.unmount()
   })
-  test('emit trimmed input event on input change', async () => {
+  test('emit input blur event', async () => {
+    await findInput().trigger('focus')
+    await findInput().trigger('blur')
+    expect(wrapper.emitted().inputBlur).toBeTruthy()
+  })
+  test('emit trimmed input on input change', async () => {
     await findInput().setValue(' Test ')
     expect(wrapper.emitted().inputChange).toBeTruthy()
     expect(wrapper.emitted().inputChange[0]).toEqual(['Test'])
@@ -67,4 +73,29 @@ describe('emit events', () => {
   })
 })
 
+describe('error message', () => {
+  afterEach(() => {
+    wrapper.unmount()
+  })
+  test('do not show error message if not passed in props', async () => {
+    wrapper = mount(TextInput, {
+      props: {
+        label: 'Label',
+        charLimit: 10,
+      }
+    })
+    expect(findErrorMsg().exists()).toBe(false)
+  })
+  test('show error message if passed in props', async () => {
+    wrapper = mount(TextInput, {
+      props: {
+        label: 'Label',
+        charLimit: 10,
+        errorMessage: 'Error'
+      }
+    })
+    expect(findErrorMsg().exists()).toBe(true)
+    expect(findErrorMsg().text()).toBe('Error')
+  })
+})
 

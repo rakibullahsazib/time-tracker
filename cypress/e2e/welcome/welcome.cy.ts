@@ -22,6 +22,19 @@ describe('testing inputs', () => {
     cy.visit('/login')
   })
 
+  it('on input blur, should show error message if input is empty', () => {
+    cy.visit('/login')
+    cy.get('#firstName').type(' ').blur()
+    cy.get('#firstName + p').should('not.be.empty')
+    cy.get('#lastName').type(' ').blur()
+    cy.get('#lastName + p').should('not.be.empty')
+    cy.get('#email').type(' ').blur()
+    cy.get('#email + p').should('not.be.empty')
+
+    cy.get('#email').type('srterstn ').blur()
+    cy.get('#email + p').should('not.be.empty')
+  })
+
   it('can not log in if inputs are empty, show error messages', () => {
     cy.visit('/login')
     cy.get('button').click()

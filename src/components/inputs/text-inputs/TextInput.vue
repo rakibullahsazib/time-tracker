@@ -9,6 +9,7 @@
       {{ label }} <span v-if="required">*</span>
     </label>
     <input
+      @blur="$emit('inputBlur')"
       :type="type || 'text'"
       :id="id"
       :placeholder="placeholder"
@@ -19,7 +20,7 @@
     >
     
     <TransitionConditional name="fade">
-      <p v-if="errorMessage" class="absolute w-full top-full mt-1 text-xs text-center text-red truncate pr-6 text-warning-700" :title="errorMessage">
+      <p v-if="errorMessage" data-testid="error-message" class="absolute w-full top-full mt-1 text-xs text-center text-red truncate pr-6 text-warning-700" :title="errorMessage">
         {{ errorMessage }}
       </p>
     </TransitionConditional>
@@ -40,7 +41,7 @@ const props = defineProps<{
   charLimit: number,
   required?: boolean
 }>()
-const emit = defineEmits(['inputChange'])
+const emit = defineEmits(['inputChange', 'inputBlur'])
 
 const input = ref(props.initialValue || '')
 const changeInput = (event: Event) => {

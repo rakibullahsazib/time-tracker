@@ -30,11 +30,11 @@ To see the coverage of unit tests:
 npm run coverage
 ```
 ### E2E Testing
-E2E testing is done using cypress. To view the tests we have to first serve our app in test mode. This is *important* because otherwise cypress will have issues with vue transitions. To avoid that close existing running apps then run:
+E2E testing is done using cypress. To view the tests, we have to first serve our app in test mode. This is *important* because otherwise cypress will have issues with vue transitions. To avoid that, close existing running apps then run:
 ```
 npm run serve:test
 ```
-Then open cypress using this command:
+Then open cypress by running this command in another terminal:
 ```
 npm run cy:open
 ```

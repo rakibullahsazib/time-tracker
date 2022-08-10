@@ -9,6 +9,7 @@
     <form @submit.prevent="signIn" class="mt-6 lg:mt-12 w-80 sm:w-96 p-4 sm:p-0">
       <TextInput
         @inputChange="changeFirstName"
+        @inputBlur="checkForFirstNameError"
         id="firstName"
         label="First Name"
         :charLimit="127"
@@ -18,6 +19,7 @@
       />
       <TextInput
         @inputChange="changeLastName"
+        @inputBlur="checkForLastNameError"
         id="lastName"
         label="Last Name"
         :charLimit="127"
@@ -27,7 +29,7 @@
       />
       <TextInput
         @inputChange="changeEmail"
-        type="email"
+        @inputBlur="checkForEmailError"
         id="email"
         label="Email Address"
         :errorMessage="emailErrorMsg"
@@ -66,49 +68,54 @@ const userStore = useUserStore()
 
 const firstName = ref('')
 const firstNameErrorMsg = ref('')
+const checkForFirstNameError = () => {
+  if (!firstName.value) {
+    firstNameErrorMsg.value = 'This field can not be empty'
+  }
+}
 const changeFirstName = (value: string) => {
   signInErrorMsg.value = ''
   firstNameErrorMsg.value = ''
-  if (!value) {
-    firstNameErrorMsg.value = 'This field can not be empty'
-  }
   firstName.value = value
 }
+
 const lastName = ref('')
 const lastNameErrorMsg = ref('')
+const checkForLastNameError = () => {
+  if (!lastName.value) {
+    lastNameErrorMsg.value = 'This field can not be empty'
+  }
+}
 const changeLastName = (value: string) => {
   signInErrorMsg.value = ''
   lastNameErrorMsg.value = ''
-  if (!value) {
-    lastNameErrorMsg.value = 'This field can not be empty'
-  }
   lastName.value = value
 }
 
 const email = ref('')
 const emailErrorMsg = ref('')
-const changeEmail = (value: string) => {
-  signInErrorMsg.value = ''
-  emailErrorMsg.value = ''
-  updateEmail(value)
-}
-const updateEmail = debounce((value: string) => {
-  if (!validateEmailAddress(value)) {
+const checkForEmailError = () => {
+  if (!validateEmailAddress(email.value)) {
     emailErrorMsg.value = 'Please provide a valid email address'
     return
   }
+}
+const changeEmail = (value: string) => {
+  signInErrorMsg.value = ''
+  emailErrorMsg.value = ''
   email.value = value
-})
+
+}
 
 const signInErrorMsg = ref('')
 
 const signIn = () => {
-  // This change methods are called to check for errors
-  changeFirstName(firstName.value)
-  changeLastName(lastName.value)
-  changeEmail(email.value)
+  // check for errors first
+  checkForFirstNameError()
+  checkForLastNameError()
+  checkForEmailError()
 
-  if (!firstNameErrorMsg.value && !lastNameErrorMsg.value && !emailErrorMsg.value && firstName.value && lastName.value && email.value) {
+  if (!firstNameErrorMsg.value && !lastNameErrorMsg.value && !emailErrorMsg.value) {
     // console.log('sign in')
     signInErrorMsg.value = userStore.createUser({
       firstName: firstName.value,
